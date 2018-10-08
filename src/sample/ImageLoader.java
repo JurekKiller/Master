@@ -21,6 +21,8 @@ public class ImageLoader {
         Mat mc5 = m.col(5);
         mc5.setTo(new Scalar(5));
         System.out.println("OpenCV Mat data:\n" + m.dump());
+        System.out.print(Core.VERSION_STATUS);
+
 
     }
 }
