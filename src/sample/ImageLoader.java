@@ -5,10 +5,21 @@ import org.opencv.core.CvType;
 import org.opencv.core.Mat;
 import org.opencv.core.Scalar;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+
 public class ImageLoader {
 
     static {
         System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
+    }
+
+
+    private void ImageReader(){
+
+        BufferedImage bufferedImage = ImageIO.read(Files.newInputStream(Paths.get(basePath + imageSource)));
     }
 
 
