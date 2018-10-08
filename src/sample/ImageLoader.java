@@ -18,7 +18,6 @@ public class ImageLoader {
 
 
     private void ImageReader(){
-
         BufferedImage bufferedImage = ImageIO.read(Files.newInputStream(Paths.get(basePath + imageSource)));
     }
 
