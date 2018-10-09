@@ -6,23 +6,32 @@ import org.opencv.core.Mat;
 import org.opencv.core.Scalar;
 
 import javax.imageio.ImageIO;
+import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.nio.file.Files;
-import java.nio.file.Paths;
+import java.io.File;
+import java.io.IOException;
 
-public class ImageLoader {
-
+public class ImageLoader  {
     static {
         System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
+
     }
+    private BufferedImage image;
 
-
-    private void ImageReader(){
-        BufferedImage bufferedImage = ImageIO.read(Files.newInputStream(Paths.get(basePath + imageSource)));
+    private ImageLoader() {
+        super();
+        File imageFile = new File("img.jpg");
+        try {
+            image = ImageIO.read(imageFile);
+        } catch (IOException e) {
+            System.err.println("Image load failed");
+            e.printStackTrace();
+        }
     }
+        public static void main(String[] args) {
+       ImageLoader obraz  = new ImageLoader();
+       System.out.print(obraz.image.getHeight() + obraz.image.getWidth());
 
-
-    public static void main(String[] args) {
         System.out.println("Welcome to OpenCV " + Core.VERSION);
         Mat m = new Mat(5, 10, CvType.CV_8UC1, new Scalar(0));
         System.out.println("OpenCV Mat: " + m);
