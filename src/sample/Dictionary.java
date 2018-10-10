@@ -1,15 +1,18 @@
 package sample;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import com.google.common.collect.ImmutableList;
 
 
 public class Dictionary {
-    static  List<String> dictionaryList = new ArrayList<String>();
+    static  String dictionaryList ;
 
-    ImmutableList<Integer> immutable = ImmutableList.of(list);
+    ImmutableList<String> immutable = ImmutableList.of(dictionaryList);
 
+    public ImmutableList<String> getImmutable() {
+        return immutable;
+    }
 
-
+    public void setImmutable(ImmutableList<String> immutable) {
+        this.immutable = immutable;
+    }
 }
