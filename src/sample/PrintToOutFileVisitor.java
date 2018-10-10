@@ -1,5 +1,7 @@
 package sample;
 
+import java.util.stream.Collectors;
+
 public class PrintToOutFileVisitor implements FileVisitable {
 
     @Override
@@ -11,7 +13,7 @@ public class PrintToOutFileVisitor implements FileVisitable {
 
 
     private String checkIsImage(String filepath){
-        return  Dictionary.extensions.stream().filter(filepath::endsWith).toString();
-
+       String a  = Dictionary.extensions.stream().filter(filepath::endsWith).collect(String::new);
+        return a;
     }
 }
