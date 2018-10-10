@@ -4,15 +4,17 @@ import com.google.common.collect.ImmutableList;
 
 
 public class Dictionary {
-    static  String dictionaryList ;
+       static final ImmutableList<String> extensions = ImmutableList.of(
+            "jpg",
+            "img",
+            "png",
+            "jpeg"
+    );
 
-    ImmutableList<String> immutable = ImmutableList.of(dictionaryList);
 
-    public ImmutableList<String> getImmutable() {
-        return immutable;
-    }
 
-    public void setImmutable(ImmutableList<String> immutable) {
-        this.immutable = immutable;
-    }
+
+
+
+
 }

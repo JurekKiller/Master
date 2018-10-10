@@ -5,17 +5,12 @@ import org.opencv.core.CvType;
 import org.opencv.core.Mat;
 import org.opencv.core.Scalar;
 
-import javax.imageio.ImageIO;
-import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.stream.Stream;
 
 public class ImageLoader  {
@@ -47,15 +42,15 @@ public class ImageLoader  {
 //        }
     }
 
-    static String readFirstLineFromFileWithFinallyBlock(String path)
-            throws IOException {
-        BufferedReader br = new BufferedReader(new FileReader(path));
-        try {
-            return br.readLine();
-        } finally {
-            if (br != null) br.close();
-        }
-    }
+//    static String readFirstLineFromFileWithFinallyBlock(String path)
+//            throws IOException {
+//        BufferedReader br = new BufferedReader(new FileReader(path));
+//        try {
+//            return br.readLine();
+//        } finally {
+//            if (br != null) br.close();
+//        }
+//    }
 
 
         public static void main(String[] args) throws IOException {
@@ -71,7 +66,7 @@ public class ImageLoader  {
 
 
 
-       readFirstLineFromFileWithFinallyBlock("C:/Users/Pawel/Desktop/Projekt Inż");
+       //readFirstLineFromFileWithFinallyBlock("C:/Users/Pawel/Desktop/Projekt Inż");
       // System.out.print(obraz.image.getHeight() + obraz.image.getWidth());
 
         System.out.println("Welcome to OpenCV " + Core.VERSION);

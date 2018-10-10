@@ -4,14 +4,12 @@ public class PrintToOutFileVisitor implements FileVisitable {
 
     @Override
     public void visit(String filePath) {
-        checkIsImage(filePath);
-        if(filePath.endsWith("jpg"))
+
+        if(checkIsImage(filePath))
             System.out.println(filePath);
     }
 
-    private void checkIsImage(String filepath){
-
+    private boolean checkIsImage(String filepath){
+           return   Dictionary.extensions.stream().anyMatch(filepath::endsWith);
     }
-
-
 }
