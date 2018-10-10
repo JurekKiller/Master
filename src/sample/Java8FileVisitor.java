@@ -21,5 +21,4 @@ class Java8FileVisitor extends AbstractFileVisitor {
     public void visit(Path path) {
         visitable.visit(path.toString());
     }
-
 }
