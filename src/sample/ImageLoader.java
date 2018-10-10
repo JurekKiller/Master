@@ -57,6 +57,7 @@ public class ImageLoader  {
             FileVisitable visitable = new PrintToOutFileVisitor();
             String path = "C:/Users/Pawel/Desktop/Projekt Inż";
             System.out.println("JAVA 8:");
+
             new Java8FileVisitor(visitable).walk(path);
 
 
