@@ -8,8 +8,15 @@ import org.opencv.core.Scalar;
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.stream.Stream;
 
 public class ImageLoader  {
     static {
@@ -18,19 +25,54 @@ public class ImageLoader  {
     }
     private BufferedImage image;
 
-    private ImageLoader() {
-        super();
+    private void ImageLoader2(Path path) {
+
         File imageFile = new File("img.jpg");
+
+
+
+        try (Stream<Path> paths = Files.walk(Paths.get("C:/Users/Pawel/Desktop/Projekt Inż"))) {
+            paths
+                    .filter(Files::isRegularFile)
+                    .forEach(System.out::println);
+        } catch (IOException e1) {
+            e1.printStackTrace();
+        }
+
+//        try {
+//            image = ImageIO.read(imageFile);
+//        } catch (IOException e) {
+//            System.err.println("Image load failed");
+//            e.printStackTrace();
+//        }
+    }
+
+    static String readFirstLineFromFileWithFinallyBlock(String path)
+            throws IOException {
+        BufferedReader br = new BufferedReader(new FileReader(path));
         try {
-            image = ImageIO.read(imageFile);
-        } catch (IOException e) {
-            System.err.println("Image load failed");
-            e.printStackTrace();
+            return br.readLine();
+        } finally {
+            if (br != null) br.close();
         }
     }
-        public static void main(String[] args) {
-       ImageLoader obraz  = new ImageLoader();
-       System.out.print(obraz.image.getHeight() + obraz.image.getWidth());
+
+
+        public static void main(String[] args) throws IOException {
+            FileVisitable visitable = new PrintToOutFileVisitor();
+            String path = "C:/Users/Pawel/Desktop/Projekt Inż";
+            System.out.println("JAVA 8:");
+            new Java8FileVisitor(visitable).walk(path);
+
+
+
+
+
+
+
+
+       readFirstLineFromFileWithFinallyBlock("C:/Users/Pawel/Desktop/Projekt Inż");
+      // System.out.print(obraz.image.getHeight() + obraz.image.getWidth());
 
         System.out.println("Welcome to OpenCV " + Core.VERSION);
         Mat m = new Mat(5, 10, CvType.CV_8UC1, new Scalar(0));
