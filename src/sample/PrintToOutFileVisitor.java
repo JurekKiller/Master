@@ -3,13 +3,15 @@ package sample;
 public class PrintToOutFileVisitor implements FileVisitable {
 
     @Override
-    public void visit(String filePath) {
+    public String visit(String filePath) {
+            String a = checkIsImage(filePath);
+            return a;
 
-        if(checkIsImage(filePath))
-            System.out.println(filePath);
     }
 
-    private boolean checkIsImage(String filepath){
-           return   Dictionary.extensions.stream().anyMatch(filepath::endsWith);
+
+    private String checkIsImage(String filepath){
+        return  Dictionary.extensions.stream().filter(filepath::endsWith).toString();
+
     }
 }

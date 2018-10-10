@@ -1,6 +1,7 @@
 package sample;
 
 import java.io.IOException;
+import java.util.List;
 
 public abstract class AbstractFileVisitor {
     protected final FileVisitable visitable;
@@ -9,6 +10,6 @@ public abstract class AbstractFileVisitor {
         this.visitable = visitable;
     }
 
-    public abstract void walk(String rootPath) throws IOException;
+    public abstract List<String> walk(String rootPath) throws IOException;
 
 }

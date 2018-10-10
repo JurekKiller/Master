@@ -1,5 +1,5 @@
 package sample;
 
 public interface FileVisitable {
-    public void visit(String filePath);
+    public String visit(String filePath);
 }

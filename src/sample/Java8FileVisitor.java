@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
+import java.util.stream.Collectors;
 
 class Java8FileVisitor extends AbstractFileVisitor {
 
@@ -12,13 +14,14 @@ class Java8FileVisitor extends AbstractFileVisitor {
     }
 
     @Override
-    public void walk(String rootPath) throws IOException {
-        Files.walk(Paths.get(rootPath))
+    public List<String> walk(String rootPath) throws IOException {
+       return Files.walk(Paths.get(rootPath))
                 .filter(path -> path.toFile().isFile())
-                .forEach(this::visit);
+                .map(this::visit)
+                .collect(Collectors.toList());
     }
 
-    public void visit(Path path) {
-        visitable.visit(path.toString());
+    public String visit(Path path) {
+       return visitable.visit(path.toString());
     }
 }
