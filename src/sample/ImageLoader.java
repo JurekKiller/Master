@@ -1,6 +1,5 @@
 package sample;
 
-import com.google.common.collect.Lists;
 import org.opencv.core.Core;
 import org.opencv.core.CvType;
 import org.opencv.core.Mat;
@@ -12,7 +11,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.stream.Stream;
 
 public class ImageLoader  {
@@ -56,18 +54,6 @@ public class ImageLoader  {
 
 
         public static void main(String[] args) throws IOException {
-            FileVisitable visitable = new PrintToOutFileVisitor();
-            String path = "C:/Users/Pawel/Desktop/Projekt Inż";
-            System.out.println("JAVA 8:");
-
-            ArrayList<String> a = Lists.newArrayList(new Java8FileVisitor(visitable).walk(path));
-
-
-
-
-
-
-
 
        //readFirstLineFromFileWithFinallyBlock("C:/Users/Pawel/Desktop/Projekt Inż");
       // System.out.print(obraz.image.getHeight() + obraz.image.getWidth());
