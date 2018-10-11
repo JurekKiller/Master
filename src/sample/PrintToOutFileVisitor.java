@@ -13,7 +13,7 @@ public class PrintToOutFileVisitor implements FileVisitable {
 
 
     private String checkIsImage(String filepath){
-       String a  = Dictionary.extensions.stream().filter(filepath::endsWith).collect(String::new);
+       String a  = Dictionary.extensions.stream().filter(filepath::endsWith).collect(Collectors.joining());
         return a;
     }
 }
