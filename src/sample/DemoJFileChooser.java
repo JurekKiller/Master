@@ -19,8 +19,6 @@ public abstract class DemoJFileChooser extends Application
 
     private String choosertitle;
 
-
-
     public void actionPerformed(ActionEvent e) {
             JFileChooser chooser = new JFileChooser();
             FileNameExtensionFilter fileNameExtensionFilter = new FileNameExtensionFilter("Images", ImageIO.getReaderFileSuffixes());
