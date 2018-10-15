@@ -21,7 +21,6 @@ public class Chooser extends Application {
         System.out.print("dupa");
     }
 
-
     public static void main(String[] args) {
         launch(args);
     }
