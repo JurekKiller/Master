@@ -18,8 +18,7 @@ public class Chooser extends Application {
         FileChooser fileChooser = new FileChooser();
         setExtension(fileChooser);
         File image = fileChooser.showOpenDialog(mainStage);
-        System.out.print("dupa");
-    }
+        }
 
     public static void main(String[] args) {
         launch(args);
