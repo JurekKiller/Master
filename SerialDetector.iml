@@ -11,10 +11,15 @@
     <orderEntry type="module-library" exported="">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/../../google-common.jar!/META-INF" />
+          <root url="jar://$MODULE_DIR$/../../opencv/build/java/opencv-400.jar!/" />
         </CLASSES>
         <JAVADOC />
-        <SOURCES />
+        <NATIVE>
+          <root url="file://$MODULE_DIR$/../../opencv/build/java/x64" />
+        </NATIVE>
+        <SOURCES>
+          <root url="jar://$MODULE_DIR$/../../opencv/build/java/opencv-400.jar!/" />
+        </SOURCES>
       </library>
     </orderEntry>
     <orderEntry type="module-library" exported="">
@@ -59,15 +64,10 @@
     <orderEntry type="module-library" exported="">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/../../opencv/build/java/opencv-400.jar!/" />
+          <root url="jar://$MODULE_DIR$/../../google-common.jar!/META-INF" />
         </CLASSES>
         <JAVADOC />
-        <NATIVE>
-          <root url="file://$MODULE_DIR$/../../opencv/build/java/x64" />
-        </NATIVE>
-        <SOURCES>
-          <root url="jar://$MODULE_DIR$/../../opencv/build/java/opencv-400.jar!/" />
-        </SOURCES>
+        <SOURCES />
       </library>
     </orderEntry>
   </component>
