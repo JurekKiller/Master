@@ -70,5 +70,6 @@
         <SOURCES />
       </library>
     </orderEntry>
+    <orderEntry type="library" exported="" name="tess4j-4.2.1" level="project" />
   </component>
 </module>
