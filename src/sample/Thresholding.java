@@ -23,7 +23,7 @@ public class Thresholding {
 
         //Imgproc.GaussianBlur(src,dst, new Size(kernelSize, kernelSize), radius);
       // Imgproc.imwrite("Adaptivemean_thresh_binary.jpg", dst);
-         Imgproc.adaptiveThreshold(src, dst, 250, Imgproc.ADAPTIVE_THRESH_MEAN_C, Imgproc.THRESH_BINARY_INV, 19, -15);
+         Imgproc.adaptiveThreshold(src, dst, 255, Imgproc.ADAPTIVE_THRESH_MEAN_C, Imgproc.THRESH_BINARY_INV, 19, -15);
 
         Imgcodecs.imwrite("Adaptivemean_thresh_binary.jpg", dst);
 
