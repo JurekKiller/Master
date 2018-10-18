@@ -43,6 +43,7 @@ public class MorphologyDemo2 {
                 // Use the content pane's default BorderLayout. No need for
                 // setLayout(new BorderLayout());
                 // Display the window.
+
                 frame.pack();
                 frame.setVisible(true);
         }
