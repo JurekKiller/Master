@@ -17,7 +17,7 @@ public class Thresholding {
 
         //String file = "C:/Users/Pawel/Desktop/Projekt Inż/SerialDetector/a.png";
 
-        Mat src = imread("audi.jpg", CV_LOAD_IMAGE_GRAYSCALE);
+        Mat src = imread("tyl.jpg", CV_LOAD_IMAGE_GRAYSCALE);
         Mat dst = new Mat();
 
         Imgproc.threshold(src, dst, 0, 255, Imgproc.THRESH_OTSU | Imgproc.THRESH_BINARY);
