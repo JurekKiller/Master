@@ -10,8 +10,7 @@ public class Test {
         Tesseract tesseract = new Tesseract();
         try {
             tesseract.setDatapath("tessdata");
-
-            String text = tesseract.doOCR(new File("C:/Users/Pawel/Desktop/Projekt Inż/SerialDetector/Adaptivemean_thresh_binary.jpg"));
+            String text = tesseract.doOCR(new File("C:/Users/Pawel/Desktop/Projekt Inż/SerialDetector/Lic_class.PNG"));
             System.out.print(text);
         } catch (TesseractException e) {
             e.printStackTrace();

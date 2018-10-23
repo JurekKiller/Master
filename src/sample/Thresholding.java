@@ -17,14 +17,14 @@ public class Thresholding {
 
         //String file = "C:/Users/Pawel/Desktop/Projekt Inż/SerialDetector/a.png";
 
-        Mat src = imread("lic_plate.png", CV_LOAD_IMAGE_GRAYSCALE);
+        Mat src = imread("audi.jpg", CV_LOAD_IMAGE_GRAYSCALE);
         Mat dst = new Mat();
 
-
+        Imgproc.threshold(src, dst, 0, 255, Imgproc.THRESH_OTSU | Imgproc.THRESH_BINARY);
         //Imgproc.GaussianBlur(src,dst, new Size(kernelSize, kernelSize), radius);
       // Imgproc.imwrite("Adaptivemean_thresh_binary.jpg", dst);
-         Imgproc.adaptiveThreshold(src, dst, 255, Imgproc.ADAPTIVE_THRESH_MEAN_C, Imgproc.THRESH_BINARY_INV, 19, -15);
-
+       //  Imgproc.adaptiveThreshold(src, dst, 255, Imgproc.ADAPTIVE_THRESH_GAUSSIAN_C, Imgproc.THRESH_BINARY_INV, 19, -15);
+//
         Imgcodecs.imwrite("Adaptivemean_thresh_binary.jpg", dst);
 
     }
