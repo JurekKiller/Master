@@ -59,20 +59,26 @@ public class LicenceClassifier {
         public static void main(String[] args) {
             System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
             LicenceClassifier licenceClassifier = new LicenceClassifier();
-            String color = "color.png";
-            String greynmae = "grey.png";
-            Mat image = Imgcodecs.imread("Adaptivemean_thresh_binary.jpg");
+
+
+             Mat a = Thresholding.ConvertThresholding();
+           Imgcodecs.imwrite("dupa.jpg",a);
+
+//            String color = "color.png";
+//            String greynmae = "grey.png";
+           Mat image = Imgcodecs.imread("Adaptivemean_thresh_binary.jpg");
+           // Mat image = Imgcodecs.imread("dupa.jpg");
             Mat frame_gray = new Mat();
 
-            Imgproc.cvtColor(image, frame_gray, Imgproc.COLOR_BGRA2GRAY);
+           Imgproc.cvtColor(image, frame_gray, Imgproc.COLOR_BGRA2GRAY);
 
-            licenceClassifier.rectDetector(color,image);
-            licenceClassifier.rectDetector(greynmae,frame_gray);
+            licenceClassifier.rectDetector(image);
+
 
 
         }
 
-        private void rectDetector(String name, Mat image){
+        private void rectDetector(Mat image){
             CascadeClassifier cascadeClassifier = new CascadeClassifier("haarcascade_russian_plate_number.xml");
             MatOfRect rectangleD = new MatOfRect();
 
@@ -86,7 +92,7 @@ public class LicenceClassifier {
             }
 
 
-            Imgcodecs.imwrite(name,image);
+        //    Imgcodecs.imwrite("lClass",image);
 
             Mat markedImage = new Mat(image,rectCrop);
             Imgcodecs.imwrite("cropimage.jpg",markedImage );
