@@ -60,19 +60,20 @@ public class LicenceClassifier {
             System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
             LicenceClassifier licenceClassifier = new LicenceClassifier();
 
-
+            Mat b = BottomHat.ConversionBottonHatt();
              Mat a = Thresholding.ConvertThresholding();
-           Imgcodecs.imwrite("dupa.jpg",a);
+         //  Imgcodecs.imwrite("a.jpg",a);
+          //  Imgcodecs.imwrite("b.jpg",b);
 
 //            String color = "color.png";
 //            String greynmae = "grey.png";
-           Mat image = Imgcodecs.imread("Adaptivemean_thresh_binary.jpg");
+           Mat image = Imgcodecs.imread("Blackhatt2.jpg");
            // Mat image = Imgcodecs.imread("dupa.jpg");
             Mat frame_gray = new Mat();
 
            Imgproc.cvtColor(image, frame_gray, Imgproc.COLOR_BGRA2GRAY);
 
-            licenceClassifier.rectDetector(image);
+            licenceClassifier.rectDetector(BottomHat.ConversionBottonHatt());
 
 
 
@@ -94,7 +95,7 @@ public class LicenceClassifier {
 
         //    Imgcodecs.imwrite("lClass",image);
 
-            Mat markedImage = new Mat(image,rectCrop);
+             Mat markedImage = new Mat(image,rectCrop);
             Imgcodecs.imwrite("cropimage.jpg",markedImage );
 
         }
