@@ -58,22 +58,43 @@ public class LicenceClassifier {
 
         public static void main(String[] args) {
             System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
-            CascadeClassifier faceDetector = new CascadeClassifier("haarcascade_russian_plate_number.xml");
-
+            LicenceClassifier licenceClassifier = new LicenceClassifier();
+            String color = "color.png";
+            String greynmae = "grey.png";
             Mat image = Imgcodecs.imread("Adaptivemean_thresh_binary.jpg");
+            Mat frame_gray = new Mat();
 
-            MatOfRect faceD = new MatOfRect();
-            faceDetector.detectMultiScale(image,faceD);
-            for (Rect rect:faceD.toArray()){
-                Imgproc.rectangle(image, new Point(rect.x, rect.y), new Point(rect.x + rect.width, rect.y + rect.height),
-                   new Scalar(0, 255, 0));
-            }
+            Imgproc.cvtColor(image, frame_gray, Imgproc.COLOR_BGRA2GRAY);
 
-            String outputFile = "OUTPUT2.png";
-            //System.out.println(String.format("writing %s", outputFile));
-            Imgcodecs.imwrite(outputFile,image);
+            licenceClassifier.rectDetector(color,image);
+            licenceClassifier.rectDetector(greynmae,frame_gray);
+
 
         }
+
+        private void rectDetector(String name, Mat image){
+            CascadeClassifier cascadeClassifier = new CascadeClassifier("haarcascade_russian_plate_number.xml");
+            MatOfRect rectangleD = new MatOfRect();
+
+            cascadeClassifier.detectMultiScale(image,rectangleD);
+            Rect rectCrop=null;
+            for (Rect rect:rectangleD.toArray()){
+
+                Imgproc.rectangle(image, new Point(rect.x, rect.y), new Point(rect.x + rect.width, rect.y + rect.height),
+                        new Scalar(0, 255, 0));
+                rectCrop = new Rect(rect.x, rect.y, rect.width, rect.height);
+            }
+
+
+            Imgcodecs.imwrite(name,image);
+
+            Mat markedImage = new Mat(image,rectCrop);
+            Imgcodecs.imwrite("cropimage.jpg",markedImage );
+
+        }
+
+
+
     }
 
 
