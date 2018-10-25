@@ -18,13 +18,13 @@ public class Chooser extends Application {
         FileChooser fileChooser = new FileChooser();
         setExtension(fileChooser);
         File image = fileChooser.showOpenDialog(mainStage);
-        }
+    }
 
     public static void main(String[] args) {
         launch(args);
     }
 
-    private void setExtension(FileChooser fileChooser){
+    private void setExtension(FileChooser fileChooser) {
         fileChooser.setTitle("Open Resource File");
         fileChooser.getExtensionFilters().addAll(
                 new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif"),
