@@ -6,17 +6,16 @@ import org.opencv.imgcodecs.Imgcodecs;
 import org.opencv.imgproc.Imgproc;
 import org.opencv.objdetect.CascadeClassifier;
 
+import java.util.Random;
+
 public class LicenceClassifier {
-    public Mat rectangleDetection() {
-        System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
-        LicenceClassifier licenceClassifier = new LicenceClassifier();
-        Mat imageBlackHat = BottomHat.ConversionBlackHat();
 
-        return licenceClassifier.croppingImg(imageBlackHat);
 
-    }
+    public static Mat rectangleDetection(Mat image) {
+        Random rand = new Random();
 
-    private Mat croppingImg(Mat image) {
+        int  n = rand.nextInt(50) + 1;
+
         CascadeClassifier cascadeClassifier = new CascadeClassifier("haarcascade_russian_plate_number.xml");
         MatOfRect rectangleD = new MatOfRect();
 
@@ -28,9 +27,15 @@ public class LicenceClassifier {
                     new Scalar(0, 255, 0));
             rectCrop = new Rect(rect.x, rect.y, rect.width, rect.height);
         }
-        Mat markedRectangle = new Mat(image, rectCrop);
-        Imgcodecs.imwrite("croppingImg.jpg", markedRectangle);
-        return markedRectangle;
+        Mat markedRectangle;
+        if(rectCrop==null){
+            return rectangleD;
+        }
+        else{
+           markedRectangle=  new Mat(image, rectCrop);
+           Imgcodecs.imwrite("Cropped/croppingImg"+n + ".jpg", markedRectangle);
+           return markedRectangle;
+        }
     }
 }
 
