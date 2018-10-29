@@ -11,10 +11,10 @@ import java.util.Random;
 public class LicenceClassifier {
 
 
-    public static Mat rectangleDetection(Mat image) {
+    public static Mat rectangleDetection(Mat image){
         Random rand = new Random();
 
-        int  n = rand.nextInt(50) + 1;
+        int  n = rand.nextInt(5000) + 1;
 
         CascadeClassifier cascadeClassifier = new CascadeClassifier("haarcascade_russian_plate_number.xml");
         MatOfRect rectangleD = new MatOfRect();

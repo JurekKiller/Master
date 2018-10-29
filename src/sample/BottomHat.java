@@ -10,7 +10,7 @@ import org.opencv.imgproc.Imgproc;
 public class BottomHat {
 
     public static Mat ConversionBlackHat(Mat srcImage, String name, String path) {
-        int kernelSize =18;
+        int kernelSize =11;
         System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
         System.out.println("name: " +name +"         path : " + path);
         Mat matImgDst = new Mat();
