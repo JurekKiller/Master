@@ -15,7 +15,7 @@ public class Thresholding {
         int n = rand.nextInt(50000) + 1;
         System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
         Mat dstImage = new Mat();
-        Imgproc.adaptiveThreshold(srcImage, dstImage, 255, Imgproc.ADAPTIVE_THRESH_GAUSSIAN_C, Imgproc.THRESH_BINARY, 5, 5);
+        Imgproc.adaptiveThreshold(srcImage, dstImage, 255, Imgproc.ADAPTIVE_THRESH_GAUSSIAN_C, Imgproc.THRESH_BINARY, 5, 1);
         Imgcodecs.imwrite("adaptiveThresholding/"+n+".jpg",dstImage);
         return dstImage;
     }
