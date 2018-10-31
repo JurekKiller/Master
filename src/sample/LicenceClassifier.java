@@ -29,7 +29,7 @@ public class LicenceClassifier {
         }
         Mat markedRectangle;
         if(rectCrop==null){
-            return rectangleD;
+            return Imgcodecs.imread("404.jpg");
         }
         else{
            markedRectangle=  new Mat(image, rectCrop);

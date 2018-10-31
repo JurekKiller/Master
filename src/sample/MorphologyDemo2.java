@@ -15,9 +15,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class MorphologyDemo2 {
-        private static final String[] MORPH_OP = { "Opening", "Closing", "Gradient", "Top Hat", "Black Hat" };
+        private static final String[] MORPH_OP = { "Opening", "Closing", "Gradient", "Top Hat", "Black Hat", "Diamond" };
         private static final int[] MORPH_OP_TYPE = { Imgproc.MORPH_OPEN, Imgproc.MORPH_CLOSE,
-                Imgproc.MORPH_GRADIENT, Imgproc.MORPH_TOPHAT, Imgproc.MORPH_BLACKHAT };
+                Imgproc.MORPH_GRADIENT, Imgproc.MORPH_TOPHAT, Imgproc.MORPH_BLACKHAT , Imgproc.MARKER_DIAMOND};
         private static final String[] ELEMENT_TYPE = { "Rectangle", "Cross", "Ellipse" };
         private static final int MAX_KERNEL_SIZE = 21;
         private Mat matImgSrc;
@@ -28,7 +28,7 @@ public class MorphologyDemo2 {
         private JFrame frame;
         private JLabel imgLabel;
         public MorphologyDemo2(String[] args) {
-                String imagePath = args.length > 0 ? args[0] : "audi.jpg";
+                String imagePath = args.length > 0 ? args[0] : "adaptiveThresholding/47485.jpg";
                 matImgSrc = Imgcodecs.imread(imagePath);
                 if (matImgSrc.empty()) {
                         System.out.println("Empty image: " + imagePath);

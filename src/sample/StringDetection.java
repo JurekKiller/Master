@@ -2,10 +2,10 @@ package sample;
 
 import net.sourceforge.tess4j.Tesseract;
 
-import java.io.File;
+import java.awt.image.BufferedImage;
 
 public class StringDetection {
-    public static void ConvertImageToString() {
+    public static void ConvertImageToString(BufferedImage image) {
         Tesseract tesseract = new Tesseract();
         try {
             //ConvertThresholding();
@@ -13,9 +13,9 @@ public class StringDetection {
 
 
             tesseract.setDatapath("tessdata");
-          //  String string = tesseract.doOCR(bufferedImage);
-            String text = tesseract.doOCR(new File("C:/Users/Pawel/Desktop/Projekt Inż/SerialDetector/Thresholding.jpg"));
-      //      System.out.print(string);
+            String string = tesseract.doOCR(image);
+         //   String text = tesseract.doOCR(new File("C:/Users/Pawel/Desktop/Projekt Inż/SerialDetector/Thresholding.jpg"));
+           System.out.println(string);
         } catch (Exception e) {
             e.printStackTrace();
         }
