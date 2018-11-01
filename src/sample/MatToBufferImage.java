@@ -15,7 +15,6 @@ public class MatToBufferImage {
         MatOfByte mob=new MatOfByte();
         Imgcodecs.imencode(".jpg", matrix, mob);
         byte ba[]=mob.toArray();
-
         BufferedImage bi= null;
         try {
             bi = ImageIO.read(new ByteArrayInputStream(ba));

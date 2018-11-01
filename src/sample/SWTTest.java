@@ -13,11 +13,13 @@ import java.io.File;
 
 public class SWTTest {
     public static void main(String[] args) throws Exception {
+       // CannyEgdes.cannyEgdesConverter();
         final SWTTextDetector detector = new SWTTextDetector();
-        detector.getOptions().direction = SWTTextDetector.Direction.DarkOnLight;
-
+        detector.getOptions().direction = SWTTextDetector.Direction.DarkOnLight ;
+      // detector.getOptions().minHeight = 60;
+     //  detector.getOptions().maxHeight = 130;
         final MBFImage image = ImageUtilities.readMBF(new File(
-                "ConvertThresholding48810.jpg"));
+                "Canny213717.jpg"));
        // image.flipX();
 
         // final MBFImage image = new MBFImage(1000, 500, 3);
@@ -29,6 +31,7 @@ public class SWTTest {
         final MBFImage allLetters = image.clone();
         for (final LetterCandidate lc : detector.getLetters())
             allLetters.drawShape(lc.getRegularBoundingBox(), RGBColour.GREEN);
+
         DisplayUtilities.display(allLetters, "All candidate letters before line grouping.");
 
         for (final LineCandidate line : detector.getLines()) {

@@ -14,7 +14,7 @@ public class StringDetection {
 
             tesseract.setDatapath("tessdata");
             String string = tesseract.doOCR(image);
-         //   String text = tesseract.doOCR(new File("C:/Users/Pawel/Desktop/Projekt Inż/SerialDetector/Thresholding.jpg"));
+           //   String text = tesseract.doOCR(new File("C:/Users/Pawel/Desktop/Projekt Inż/SerialDetector/222.png"));
            System.out.println(string);
         } catch (Exception e) {
             e.printStackTrace();

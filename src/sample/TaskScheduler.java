@@ -11,14 +11,13 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import static org.opencv.imgcodecs.Imgcodecs.CV_LOAD_IMAGE_GRAYSCALE;
-import static sample.Filter.medianFilter;
 import static sample.ImageBlurring.medianBlurring;
 import static sample.Thresholding.adaptiveThresholding;
 
 public class TaskScheduler {
     public static void main(String[] args) {
         System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
-        File rootDir = new File("new");
+        File rootDir = new File("punto");
         File[] files = rootDir.listFiles();
 
 
@@ -45,13 +44,13 @@ public class TaskScheduler {
             List<Mat> a = ab.parallelStream()
                     .map(file -> LicenceClassifier.rectangleDetection(file))
                     .map(x -> adaptiveThresholding(x))
-                    .map(y -> medianFilter(y))
+                 //   .map(y -> medianFilter(y))
                     .collect(Collectors.toList());
 
 
-            List<BufferedImage> ac = a.parallelStream()
+           List<BufferedImage> ac = a.parallelStream()
                     .map(file -> MatToBufferImage.MatToBufferImage(file))
-                    .collect(Collectors.toList());
+                   .collect(Collectors.toList());
 
             ac.stream().forEach(x -> StringDetection.ConvertImageToString(x));
             System.out.println(a.size());
