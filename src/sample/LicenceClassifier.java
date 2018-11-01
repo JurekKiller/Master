@@ -33,7 +33,7 @@ public class LicenceClassifier {
         }
         else{
            markedRectangle=  new Mat(image, rectCrop);
-           Imgcodecs.imwrite("Cropped/croppingImg"+n + ".jpg", markedRectangle);
+           Imgcodecs.imwrite("Cropped2/croppingImg"+n + ".jpg", markedRectangle);
            return markedRectangle;
         }
     }
