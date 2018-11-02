@@ -3,6 +3,8 @@ package sample;
 import org.opencv.core.Mat;
 import org.opencv.core.MatOfByte;
 import org.opencv.imgcodecs.Imgcodecs;
+import org.openimaj.image.ImageUtilities;
+import org.openimaj.image.MBFImage;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -23,4 +25,15 @@ public class MatToBufferImage {
         }
         return bi;
     }
+
+    public static BufferedImage MBFImageToBufferImage(MBFImage image){
+
+      //  BufferedImage aa=null;
+
+
+              return ImageUtilities.createBufferedImage(image);
+        //    ImageUtilities.write(image, new File("shuffled3.jpg"));
+
+    }
+
 }
