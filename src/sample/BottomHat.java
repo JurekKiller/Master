@@ -23,7 +23,6 @@ public class BottomHat {
         Mat element = Imgproc.getStructuringElement(Imgproc.CV_SHAPE_RECT, new Size(2 * kernelSize + 1, 2 * kernelSize + 1),
                 new Point(kernelSize, kernelSize));
 
-
         Imgproc.morphologyEx(srcImage, matImgDst, Imgproc.MORPH_BLACKHAT, element);
         Core.bitwise_not(matImgDst, matImgDstInv);
         Imgcodecs.imwrite("BlackHat/ConversionBlackHat_"+n+".jpg", matImgDst);

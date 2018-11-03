@@ -47,14 +47,13 @@ public class TaskScheduler {
                 .map(FormatConverter::MatToBufferImage)
                 .map(SWTransform::SWTransform)
                 .map(FormatConverter::MBFImageToBufferImage)
-            //    .map(MatToBufferImage::mat2)
-            //   .map(Thresholding::adaptiveThresholding)
-            //    .map(MatToBufferImage::MatToBufferImage)
+                //    .map(MatToBufferImage::mat2)
+                //   .map(Thresholding::adaptiveThresholding)
+                //    .map(MatToBufferImage::MatToBufferImage)
                 .collect(Collectors.toList());
 
 
-
-         ac.stream().forEach(StringDetection::ConvertImageToString);
+        ac.stream().forEach(StringDetection::ConvertImageToString);
         System.out.println(a.size());
         System.out.println("dupa");
         System.out.println("");

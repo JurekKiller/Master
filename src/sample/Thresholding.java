@@ -28,15 +28,15 @@ public class Thresholding {
         //    new Point(kernelSize, kernelSize));
         //Imgproc.morphologyEx(srcImage, dstImage, Imgproc.MORPH_BLACKHAT, element);
         //  Imgproc.adaptiveThreshold(dstImage, disImag2, 255, Imgproc.ADAPTIVE_THRESH_GAUSSIAN_C, Imgproc.THRESH_BINARY, 3, Cooooo7);
-     //   Imgproc.threshold(srcImage, dstImage, 128, 255, 0);
+        //   Imgproc.threshold(srcImage, dstImage, 128, 255, 0);
         // Mat kernel = Imgproc.getStructuringElement(Imgproc.CV_SHAPE_CROSS, new Size(3,3));
 
-       //   Imgproc.morphologyEx(srcImage,disImag,Imgproc.MORPH_OPEN,new Mat(new Size(3, 3), CvType.CV_8U, new Scalar(255)));
+        //   Imgproc.morphologyEx(srcImage,disImag,Imgproc.MORPH_OPEN,new Mat(new Size(3, 3), CvType.CV_8U, new Scalar(255)));
 
         // Imgproc.morphologyEx(dstImage,disImag2,Imgproc.MORPH_CLOSE,new Mat(new Size(3, 3), CvType.CV_8U, new Scalar(255)));
 
 
-         //  Imgproc.Canny(disImag2,matImgDstInv,0,255);
+        //  Imgproc.Canny(disImag2,matImgDstInv,0,255);
         //  Imgproc.morphologyEx(dstImage,disImag2,Imgproc.MORPH_ERODE,kernel);
         //Imgproc.morphologyEx(disImag2, disImag, Imgproc.MORPH_ERODE, kernel);
         //  Core.bitwise_not(disImag, matImgDstInv);

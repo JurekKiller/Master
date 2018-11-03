@@ -17,20 +17,19 @@ import org.openimaj.image.text.extraction.swt.WordCandidate;
 import java.awt.image.BufferedImage;
 
 public class SWTTest {
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args)  {
         System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
         final SWTTextDetector detector = new SWTTextDetector();
         detector.getOptions().direction = SWTTextDetector.Direction.DarkOnLight;
-       Mat srcImage = Imgcodecs.imread("cars/croppingImg420.jpg");
-       Mat dstImage = new Mat();
+        Mat srcImage = Imgcodecs.imread("cars/croppingImg420.jpg");
+        Mat dstImage = new Mat();
         Imgproc.threshold(srcImage, dstImage, 111, 255, 0);
-       BufferedImage a = FormatConverter.MatToBufferImage(dstImage);
-        final MBFImage image = ImageUtilities.createMBFImage(a,false)     ;
+        BufferedImage a = FormatConverter.MatToBufferImage(dstImage);
+        final MBFImage image = ImageUtilities.createMBFImage(a, false);
 
 
-
-   //     final MBFImage image = ImageUtilities.readMBF(new File(
-                //"cars/croppingImg4626.jpg"));
+        //     final MBFImage image = ImageUtilities.readMBF(new File(
+        //"cars/croppingImg4626.jpg"));
         // image.flipX();
 
         // final MBFImage image = new MBFImage(1000, 500, 3);

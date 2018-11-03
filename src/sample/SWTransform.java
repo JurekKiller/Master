@@ -50,11 +50,10 @@ public class SWTransform {
 
             for (final WordCandidate wc : line.getWords()) {
                 //   image.drawShape(wc.getRegularBoundingBox(), 3, RGBColour.BLUE);
-                MBFImage a=   image.extractROI(wc.getRegularBoundingBox());
 
-              //  ImageUtilities.write(a, new File("shuffled2.jpg"));
+                //  ImageUtilities.write(a, new File("shuffled2.jpg"));
 
-                return a;
+                return image.extractROI(wc.getRegularBoundingBox());
 
             }
         }
