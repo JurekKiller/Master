@@ -44,9 +44,12 @@ public class TaskScheduler {
 
 
         List<BufferedImage> ac = a.parallelStream()
-                .map(MatToBufferImage::MatToBufferImage)
-                .map(SWTTest::SWTransform)
-                .map(MatToBufferImage::MBFImageToBufferImage)
+                .map(FormatConverter::MatToBufferImage)
+                .map(SWTransform::SWTransform)
+                .map(FormatConverter::MBFImageToBufferImage)
+            //    .map(MatToBufferImage::mat2)
+            //   .map(Thresholding::adaptiveThresholding)
+            //    .map(MatToBufferImage::MatToBufferImage)
                 .collect(Collectors.toList());
 
 
