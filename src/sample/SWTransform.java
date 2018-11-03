@@ -52,7 +52,6 @@ public class SWTransform {
                 //   image.drawShape(wc.getRegularBoundingBox(), 3, RGBColour.BLUE);
 
                 //  ImageUtilities.write(a, new File("shuffled2.jpg"));
-
                 return image.extractROI(wc.getRegularBoundingBox());
 
             }
