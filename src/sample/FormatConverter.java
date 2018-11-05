@@ -37,11 +37,7 @@ public class FormatConverter {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-
         return ImageUtilities.createBufferedImage(image);
-
-
     }
 
 }
