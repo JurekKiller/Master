@@ -15,7 +15,7 @@ import static org.opencv.imgcodecs.Imgcodecs.CV_LOAD_IMAGE_GRAYSCALE;
 public class TaskScheduler {
     public static void main(String[] args) {
         System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
-        File rootDir = new File("cars");
+        File rootDir = new File("new");
         File[] files = rootDir.listFiles();
 
 
@@ -44,6 +44,7 @@ public class TaskScheduler {
 
 
         List<BufferedImage> ac = a.parallelStream()
+                .map(Thresholding::adaptiveThresholding)
                 .map(FormatConverter::MatToBufferImage)
                 .map(SWTransform::SWTransform)
                 .map(FormatConverter::MBFImageToBufferImage)
@@ -55,7 +56,7 @@ public class TaskScheduler {
 
         ac.stream().forEach(StringDetection::ConvertImageToString);
         System.out.println(a.size());
-        System.out.println("dupa");
+        System.out.println("end");
         System.out.println("");
 
     }

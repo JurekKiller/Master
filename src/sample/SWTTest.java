@@ -4,7 +4,6 @@ package sample;
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
 import org.opencv.imgcodecs.Imgcodecs;
-import org.opencv.imgproc.Imgproc;
 import org.openimaj.image.DisplayUtilities;
 import org.openimaj.image.ImageUtilities;
 import org.openimaj.image.MBFImage;
@@ -21,9 +20,12 @@ public class SWTTest {
         System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
         final SWTTextDetector detector = new SWTTextDetector();
         detector.getOptions().direction = SWTTextDetector.Direction.DarkOnLight;
-        Mat srcImage = Imgcodecs.imread("cars/croppingImg420.jpg");
+        Mat srcImage = Imgcodecs.imread("Cropped2/croppingImg2826.jpg");
         Mat dstImage = new Mat();
-        Imgproc.threshold(srcImage, dstImage, 111, 255, 0);
+        dstImage = Thresholding.adaptiveThresholding(srcImage);
+        //    Imgproc.threshold(srcImage, dstImage, 110, 255, 0);
+        //  Imgproc.adaptiveThreshold(srcImage, dstImage, 255, Imgproc.ADAPTIVE_THRESH_GAUSSIAN_C, Imgproc.THRESH_BINARY, 11, 3);
+        //     Imgproc.adaptiveThreshold(srcImage,dstImage,255,Imgproc.ADAPTIVE_THRESH_GAUSSIAN_C,Imgproc.THRESH_BINARY,3,3);
         BufferedImage a = FormatConverter.MatToBufferImage(dstImage);
         final MBFImage image = ImageUtilities.createMBFImage(a, false);
 

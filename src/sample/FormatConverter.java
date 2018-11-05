@@ -10,7 +10,9 @@ import org.openimaj.image.MBFImage;
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
+import java.io.File;
 import java.io.IOException;
+import java.util.Random;
 
 public class FormatConverter {
 
@@ -28,12 +30,17 @@ public class FormatConverter {
     }
 
     public static BufferedImage MBFImageToBufferImage(MBFImage image) {
-
-        //  BufferedImage aa=null;
+        Random rand = new Random();
+        int n = rand.nextInt(50000) + 1;
+        try {
+            ImageUtilities.write(image, new File("SWT/swt" + n + ".jpg"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
 
         return ImageUtilities.createBufferedImage(image);
-        //    ImageUtilities.write(image, new File("shuffled3.jpg"));
+
 
     }
 
