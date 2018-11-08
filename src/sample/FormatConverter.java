@@ -31,6 +31,7 @@ public class FormatConverter {
 
     public static BufferedImage MBFImageToBufferImage(MBFImage image) {
         Random rand = new Random();
+
         int n = rand.nextInt(50000) + 1;
         try {
             ImageUtilities.write(image, new File("SWT/swt" + n + ".jpg"));

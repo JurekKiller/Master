@@ -35,13 +35,16 @@ public class BorderSubstracer {
         Mat reducedY = new Mat();
         Core.reduce(normalized, reducedY, 1, Core.REDUCE_AVG, CvType.CV_8UC1);
         normalized.release();
-
+        Imgcodecs.imwrite("afterREduce.jpg", reducedX);
         Mat reducedSobelX = new Mat();
         Imgproc.Sobel(reducedX, reducedSobelX, reducedX.depth(), 2, 0);
         reducedX.release();
-
+        Imgcodecs.imwrite("afterREduceSobelX.jpg", reducedSobelX);
         Mat reducedSobelY = new Mat();
+
+
         Imgproc.Sobel(reducedY, reducedSobelY, reducedX.depth(), 0, 2);
+        Imgcodecs.imwrite("reducedSobelY.jpg", reducedSobelY);
         reducedY.release();
         //finding maximum values in both x and y planes
         Point peak_point;

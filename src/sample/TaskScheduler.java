@@ -25,7 +25,7 @@ public class TaskScheduler {
                 .map(file -> Imgcodecs.imread(file.getPath(), CV_LOAD_IMAGE_GRAYSCALE))
                 .collect(Collectors.toList());
 
-        System.out.println(listOfImages.size());
+        //  System.out.println(listOfImages.size());
         //   .map(file -> ConversionBlackHat(Imgcodecs.imread(file.getPath(), CV_LOAD_IMAGE_GRAYSCALE), file.getName(), file.getPath()))
 //                .map(image -> Thresholding.ConvertThresholding(image))
 //                .collect(Collectors.toList());
@@ -55,8 +55,8 @@ public class TaskScheduler {
 
 
         ac.stream().forEach(StringDetection::ConvertImageToString);
-        System.out.println(a.size());
-        System.out.println("end");
+        // System.out.println(a.size());
+        //    System.out.println("end");
         System.out.println("");
 
     }
