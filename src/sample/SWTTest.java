@@ -4,21 +4,27 @@ package sample;
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
 import org.opencv.imgcodecs.Imgcodecs;
+import sample.BorderHistorgram.Graph;
 import sample.BorderHistorgram.Plate;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
+import java.util.Random;
 
 import static sample.FormatConverter.MatToBufferImage;
 
 public class SWTTest {
     public static void main(String[] args) throws IOException {
 
-
-
-
         System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
-        Mat srcImage = Imgcodecs.imread("SWT/swt28937.jpg");
-//
+        Random rand = new Random();
+        int n = rand.nextInt(50000) + 1;
+        Mat srcImage2 = Imgcodecs.imread("adaptiveThresholding/threshold2026.jpg");
+
+        // Mat dstImage = new Mat();
+        //  Imgproc.threshold(srcImage, dstImage, 110, 255, Imgproc.THRESH_OTSU | Imgproc.THRESH_BINARY); // not bad !!
 //        File file = new File("a.jpg");
 //        FileInputStream fis = new FileInputStream(file);
 //        Photo p = new Photo(fis);
@@ -28,15 +34,44 @@ public class SWTTest {
 //        transformed.saveImage("DUPA.jpg");
 //        p.close();
 //        transformed.close();
+        //  BufferedImage a= MatToBufferImage(dstImage);
+
+//        CarSnapshot carSnapshot = new CarSnapshot(MatToBufferImage(srcImage2));
+//
+//        List<Band> aa = carSnapshot.getBands();
+//        List<Plate> im = aa.get(0).getPlates();
+//        Plate aa3 = im.get(0);]
+//        aa3.normalize();
+//        aa3.saveImage("plate.jpg");
+//        List<Char> chars = aa3.getChars();
+//        Char pp = chars.get(0);
+//        pp.normalize();
 
 
-        Plate plate = new Plate(MatToBufferImage(srcImage));
-        // Graph a = plate.histogram(MatToBufferImage(srcImage));
+        Graph graph = new Graph();
+
+        Plate plate = new Plate(MatToBufferImage(srcImage2));
+//         Graph a = plate.histogram(MatToBufferImage(srcImage));
 //        plate.horizontalEdgeDetector(MatToBufferImage(srcImage));
 //         plate.verticalEdgeDetector(MatToBufferImage(srcImage));
         plate.normalize();
+        BufferedImage a = plate.renderGraph();
+//        BufferedImage v = plate.renderGraphVerticaly();
+//
+//
+//
+        int k = n;
+        try {
+            BufferedImage bi = a;  // retrieve image
+            File outputfile = new File("BorderH/render2" + k + ".png");
+            ImageIO.write(bi, "png", outputfile);
+
+        } catch (IOException e) {
+            // handle exception
+        }
+
         //  plate.renderGraph();
-        plate.saveImage("PUPA2.jpg");
+        plate.saveImage("BorderH/BorderH" + k + ".jpg");
 
 //       List a = plate.getChars();
 //        Photo photo = new Photo(MatToBufferImage(srcImage));
@@ -46,7 +81,7 @@ public class SWTTest {
 
 //        HorizontalProj.Hprojt();
 //
-//        File inputFile = new File("swt15965.jpg");
+//        File inputFile = new File("PUPA5.jpg");
 //        Image someImage = null;
 //        try {
 //            someImage = ImageIO.read(inputFile);
@@ -56,21 +91,12 @@ public class SWTTest {
 //        ImagePlus imagePlus = new ImagePlus();
 //        imagePlus.setImage(someImage);
 //        ColorProcessor processor = (ColorProcessor) imagePlus.getProcessor();
-//
-//        HorizontalProj w = new HorizontalProj();
-//        w.run(processor);
-//
-//       System.out.print(HorizontalProj.Hprojt());
 
 
-//          Mat a = BorderSubstracer.borderSubtracter("a.jpg");
-//        Imgcodecs.imwrite("bodrerSu3b.jpg",a);
-
-//
 //        System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
 //        final SWTTextDetector detector = new SWTTextDetector();
 //        detector.getOptions().direction = SWTTextDetector.Direction.DarkOnLight;
-//        Mat srcImage = Imgcodecs.imread("Cropped2/croppingImg2008.jpg");
+//        Mat srcImage = Imgcodecs.imread("PUPA5.jpg");
 //        Mat dstImage = new Mat();
 //        dstImage = Thresholding.adaptiveThresholding(srcImage);
 //        //    Imgproc.threshold(srcImage, dstImage, 110, 255, 0);
@@ -104,7 +130,6 @@ public class SWTTest {
 //            for (final WordCandidate wc : line.getWords())
 //                image.drawShape(wc.getRegularBoundingBox(), 3, RGBColour.BLUE);
 //        }
-//
 //        DisplayUtilities.display(image, "Filtered candidate letters, lines and words.");
     }
 }

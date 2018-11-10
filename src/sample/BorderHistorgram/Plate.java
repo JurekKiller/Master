@@ -51,6 +51,11 @@ public class Plate extends Photo implements Cloneable {
         return graphHandle.renderHorizontally(getWidth(), 100);
     }
 
+    public List<Peak> listOfPeaks() {
+        computeGraph();
+        return graphHandle.peaks;
+    }
+
     private List<Peak> computeGraph() {
         if (graphHandle != null) {
             return graphHandle.peaks;
@@ -107,6 +112,7 @@ public class Plate extends Photo implements Cloneable {
 //        if (Plate.horizontalDetectionType == 1) {
 //            clone2.horizontalEdgeDetector(clone2.getImage());
 //        }
+        // clone2.horizontalEdgeDetector(clone2.getImage());
         PlateHorizontalGraph horizontal = clone1.histogramXaxis(clone2.getImage());
         setImage(cutLeftRight(getImage(), horizontal));
         plateCopy.setImage(cutLeftRight(plateCopy.getImage(), horizontal));
@@ -121,9 +127,16 @@ public class Plate extends Photo implements Cloneable {
 
     private BufferedImage cutLeftRight(BufferedImage origin, PlateHorizontalGraph graph) {
         graph.applyProbabilityDistributor(new Graph.ProbabilityDistributor(0f, 0f, 2, 2));
+        List<Peak> peaks2 = listOfPeaks();
         List<Peak> peaks = graph.findPeak();
+//        peaks.size();
+//        crop(origin,);
+        // Scalr.crop(origin,60,origin.getHeight());
+
         if (peaks.size() != 0) {
             Peak p = peaks.get(0);
+            int diff = p.getDiff();
+            int left = p.getLeft();
             return origin.getSubimage(p.getLeft(), 0, p.getDiff(), getImage().getHeight());
         }
         return origin;
