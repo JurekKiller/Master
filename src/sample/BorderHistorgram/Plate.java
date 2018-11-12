@@ -18,9 +18,7 @@ package sample.BorderHistorgram;
 
 import net.sf.javaanpr.configurator.Configurator;
 
-import java.awt.image.BufferedImage;
-import java.awt.image.ConvolveOp;
-import java.awt.image.Kernel;
+import java.awt.image.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -104,7 +102,7 @@ public class Plate extends Photo implements Cloneable {
      */
     public void normalize() {
         Plate clone1 = clone();
-        clone1.verticalEdgeDetector(clone1.getImage());
+        // clone1.verticalEdgeDetector(clone1.getImage());
         PlateVerticalGraph vertical = clone1.histogramYaxis(clone1.getImage());
         setImage(cutTopBottom(getImage(), vertical));
         plateCopy.setImage(cutTopBottom(plateCopy.getImage(), vertical));
@@ -113,11 +111,29 @@ public class Plate extends Photo implements Cloneable {
 //            clone2.horizontalEdgeDetector(clone2.getImage());
 //        }
         // clone2.horizontalEdgeDetector(clone2.getImage());
-        PlateHorizontalGraph horizontal = clone1.histogramXaxis(clone2.getImage());
+        PlateHorizontalGraph horizontal = clone2.histogramXaxis(clone2.getImage());
         setImage(cutLeftRight(getImage(), horizontal));
         plateCopy.setImage(cutLeftRight(plateCopy.getImage(), horizontal));
 
     }
+
+    public void normalized2() {
+        Plate clone1 = clone();
+//        clone1.horizontalEdgeDetector(clone1.getImage());
+        PlateHorizontalGraph horizontalGraph = clone1.histogramXaxis(clone1.getImage());
+        setImage(cutLeftRight(getImage(), horizontalGraph));
+        plateCopy.setImage(cutLeftRight(plateCopy.getImage(), horizontalGraph));
+
+
+        Plate clone2 = clone();
+        // clone2.verticalEdgeDetector(clone2.getImage());
+        PlateVerticalGraph vertical = clone2.histogramYaxis(clone2.getImage());
+        setImage(cutTopBottom(getImage(), vertical));
+        plateCopy.setImage(cutTopBottom(plateCopy.getImage(), vertical));
+
+
+    }
+
 
     private BufferedImage cutTopBottom(BufferedImage origin, PlateVerticalGraph graph) {
         graph.applyProbabilityDistributor(new Graph.ProbabilityDistributor(0f, 0f, 2, 2));
@@ -127,6 +143,8 @@ public class Plate extends Photo implements Cloneable {
 
     private BufferedImage cutLeftRight(BufferedImage origin, PlateHorizontalGraph graph) {
         graph.applyProbabilityDistributor(new Graph.ProbabilityDistributor(0f, 0f, 2, 2));
+        int width = origin.getWidth();
+        int heiht = origin.getHeight();
         List<Peak> peaks2 = listOfPeaks();
         List<Peak> peaks = graph.findPeak();
 //        peaks.size();
@@ -136,6 +154,7 @@ public class Plate extends Photo implements Cloneable {
         if (peaks.size() != 0) {
             Peak p = peaks.get(0);
             int diff = p.getDiff();
+            int pp = peaks2.size();
             int left = p.getLeft();
             return origin.getSubimage(p.getLeft(), 0, p.getDiff(), getImage().getHeight());
         }
@@ -155,18 +174,24 @@ public class Plate extends Photo implements Cloneable {
     }
 
     private PlateVerticalGraph histogramYaxis(BufferedImage bi) {
+        BufferedImageOp imageOp;
+
         PlateVerticalGraph graph = new PlateVerticalGraph();
         int w = bi.getWidth();
         int h = bi.getHeight();
         for (int y = 0; y < h; y++) {
             float counter = 0;
+            float counter2 = 0;
             for (int x = 0; x < w; x++) {
                 counter += Photo.getBrightness(bi, x, y);
+                // counter += Photo.getPixel(bi,x,y);
+
             }
             graph.addPeak(counter);
         }
         return graph;
     }
+
 
     private PlateHorizontalGraph histogramXaxis(BufferedImage bi) {
         PlateHorizontalGraph graph = new PlateHorizontalGraph();
@@ -175,6 +200,7 @@ public class Plate extends Photo implements Cloneable {
         for (int x = 0; x < w; x++) {
             float counter = 0;
             for (int y = 0; y < h; y++) {
+                // counter += Photo.getPixel(bi,x,y);
                 counter += Photo.getBrightness(bi, x, y);
             }
             graph.addPeak(counter);

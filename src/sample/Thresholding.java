@@ -24,7 +24,8 @@ public class Thresholding {
         Mat dstImage = new Mat();
         int kernelSize = 11;
 
-//       Imgproc.cvtColor(srcImage, disImag, Imgproc.COLOR_RGB2GRAY);
+
+//       Imgproc.cvtColor(srcImage  , disImag, Imgproc.COLOR_RGB2GRAY);
         //Mat element = Imgproc.getStructuringElement(Imgproc.CV_SHAPE_RECT, new Size(2 * kernelSize + 1, 2 * kernelSize + 1),
         //    new Point(kernelSize, kernelSize));
         //Imgproc.morphologyEx(srcImage, dstImage, Imgproc.MORPH_BLACKHAT, element);
@@ -34,7 +35,7 @@ public class Thresholding {
         //    Imgproc.threshold(srcImage, dstImage, 100, 255, 0);
         //  Mat kernel = Imgproc.getStructuringElement(Imgproc.CV_SHAPE_CROSS, new Size(1,1));
 
-        Imgproc.threshold(srcImage, dstImage, 90, 255, Imgproc.THRESH_OTSU | Imgproc.THRESH_BINARY); // not bad !!
+        Imgproc.threshold(srcImage, dstImage, 0, 255, Imgproc.THRESH_OTSU | Imgproc.THRESH_BINARY); // not bad !!
 
         //   Imgproc.morphologyEx(srcImage,disImag,Imgproc.MORPH_OPEN,new Mat(new Size(3, 3), CvType.CV_8U, new Scalar(255)));
 

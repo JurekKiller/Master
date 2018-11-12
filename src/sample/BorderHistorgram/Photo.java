@@ -21,12 +21,7 @@ import net.sf.javaanpr.configurator.Configurator;
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.geom.AffineTransform;
-import java.awt.image.BufferedImage;
-import java.awt.image.BufferedImageOp;
-import java.awt.image.ConvolveOp;
-import java.awt.image.Kernel;
-import java.awt.image.LookupOp;
-import java.awt.image.ShortLookupTable;
+import java.awt.image.*;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -71,6 +66,17 @@ public class Photo implements AutoCloseable, Cloneable {
         float[] hsb = Color.RGBtoHSB(r, g, b, null);
         return hsb[0];
     }
+
+    public static float getPixel(BufferedImage imageOp, int x, int y) {
+        return imageOp.getRaster().getSampleFloat(x, y, 0);
+    }
+
+
+//        bla = ImageProcessor.toBuffer
+    //     Imgproc.calcHist(horProj, new MatOfInt(2), new Mat(), rHist, new MatOfInt(histSize), histRange, accumulate);
+    // Mat n = new Mat();
+
+
 
     /**
      * Converts a given Image into a BufferedImage.

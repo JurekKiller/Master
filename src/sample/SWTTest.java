@@ -11,6 +11,7 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Random;
 
 import static sample.FormatConverter.MatToBufferImage;
@@ -18,10 +19,18 @@ import static sample.FormatConverter.MatToBufferImage;
 public class SWTTest {
     public static void main(String[] args) throws IOException {
 
+
+        File rootDir = new File("adaptiveThresholding");
+        File[] files = rootDir.listFiles();
+
+
+        Arrays.stream(files).forEach(images -> System.out.println("LOADED : " + images.getName()));
+
+
         System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
-        Random rand = new Random();
-        int n = rand.nextInt(50000) + 1;
-        Mat srcImage2 = Imgcodecs.imread("adaptiveThresholding/threshold2026.jpg");
+
+        Arrays.stream(files).forEach(images -> BorderHistogram(images.getName()));
+
 
         // Mat dstImage = new Mat();
         //  Imgproc.threshold(srcImage, dstImage, 110, 255, Imgproc.THRESH_OTSU | Imgproc.THRESH_BINARY); // not bad !!
@@ -48,30 +57,7 @@ public class SWTTest {
 //        pp.normalize();
 
 
-        Graph graph = new Graph();
 
-        Plate plate = new Plate(MatToBufferImage(srcImage2));
-//         Graph a = plate.histogram(MatToBufferImage(srcImage));
-//        plate.horizontalEdgeDetector(MatToBufferImage(srcImage));
-//         plate.verticalEdgeDetector(MatToBufferImage(srcImage));
-        plate.normalize();
-        BufferedImage a = plate.renderGraph();
-//        BufferedImage v = plate.renderGraphVerticaly();
-//
-//
-//
-        int k = n;
-        try {
-            BufferedImage bi = a;  // retrieve image
-            File outputfile = new File("BorderH/render2" + k + ".png");
-            ImageIO.write(bi, "png", outputfile);
-
-        } catch (IOException e) {
-            // handle exception
-        }
-
-        //  plate.renderGraph();
-        plate.saveImage("BorderH/BorderH" + k + ".jpg");
 
 //       List a = plate.getChars();
 //        Photo photo = new Photo(MatToBufferImage(srcImage));
@@ -132,4 +118,40 @@ public class SWTTest {
 //        }
 //        DisplayUtilities.display(image, "Filtered candidate letters, lines and words.");
     }
+
+
+    public static void BorderHistogram(String path) {
+
+
+        System.out.println(path);
+        Random rand = new Random();
+        int n = rand.nextInt(50000) + 1;
+        Mat srcImage2 = Imgcodecs.imread("adaptiveThresholding/" + path);
+
+        Graph graph = new Graph();
+
+        Plate plate = new Plate(MatToBufferImage(srcImage2));
+        plate.normalize();
+        BufferedImage a = plate.renderGraph();
+        System.out.println(a.getWidth() + " widthcrop" + ":::" + a.getHeight() + "wysokosc");
+
+
+        int k = n;
+        try {
+            BufferedImage bi = a;  // retrieve image
+            File outputfile = new File("BorderH/render_" + path);
+            ImageIO.write(bi, "png", outputfile);
+
+        } catch (IOException e) {
+            // handle exception
+        }
+        try {
+            plate.saveImage("BorderH/BorderH_" + path);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+    }
+
 }

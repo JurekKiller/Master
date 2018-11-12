@@ -25,8 +25,8 @@ public class BottomHat {
 
         Imgproc.morphologyEx(srcImage, matImgDst, Imgproc.MORPH_BLACKHAT, element);
         Core.bitwise_not(matImgDst, matImgDstInv);
-        Imgcodecs.imwrite("BlackHat/ConversionBlackHat_"+n+".jpg", matImgDst);
-        return matImgDst;
+        Imgcodecs.imwrite("BlackHat/ConversionBlackHat_" + n + ".jpg", matImgDstInv);
+        return matImgDstInv;
     }
 }
 
