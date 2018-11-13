@@ -408,6 +408,15 @@ public class Photo implements AutoCloseable, Cloneable {
                 hough.addLine(x, y, getBrightness(x, y));
             }
         }
+        //  BufferedImage a = hough.render(HoughTransformation.RENDER_ALL,HoughTransformation.COLOR_BW);
+//
+//       saveToImage(a);
+//       AffineTransform aaa=  a.createGraphics().getTransform();
+//
+//       System.out.println(hough.getDy());
+//        System.out.println(hough.getDx());
+//        System.out.println("");
+//        System.out.println("AGLE" + hough.getAngle());
         return hough;
     }
 

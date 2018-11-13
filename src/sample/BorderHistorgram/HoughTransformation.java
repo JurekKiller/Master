@@ -24,7 +24,7 @@ public class HoughTransformation {
     public static final int RENDER_TRANSFORMONLY = 0;
     public static final int COLOR_BW = 0;
     public static final int COLOR_HUE = 1;
-    private float angle = 0;
+    private float angle;
     private float dx = 0;
     private float dy = 0;
     private final float[][] bitmap;
@@ -123,7 +123,7 @@ public class HoughTransformation {
         int dy = y1 - y0;
         this.dx = dx;
         this.dy = dy;
-        angle = (float) ((180 * Math.atan(dy / dx)) / Math.PI);
+        angle = (float) ((180 * Math.atan(this.dy / this.dx)) / Math.PI);
         if (renderType == HoughTransformation.RENDER_ALL) {
             g.drawOval(maxPoint.x - 5, maxPoint.y - 5, 10, 10);
             g.drawLine(0, (height / 2) - (dy / 2) - 1, width, ((height / 2) + (dy / 2)) - 1);

@@ -30,7 +30,7 @@ public class FormatConverter {
         return bi;
     }
 
-    private static void saveToImage(BufferedImage bufferedImage) {
+    public static void saveToImage(BufferedImage bufferedImage) {
         Random rand = new Random();
         int n = rand.nextInt(50000) + 1;
         File outputfile2 = new File("BorderHistorgram/saved" + n + ".jpg");
