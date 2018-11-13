@@ -33,7 +33,7 @@ public class FormatConverter {
     public static void saveToImage(BufferedImage bufferedImage) {
         Random rand = new Random();
         int n = rand.nextInt(50000) + 1;
-        File outputfile2 = new File("BorderHistorgram/saved" + n + ".jpg");
+        File outputfile2 = new File("BorderHistorgram/rotate_" + n + ".jpg");
         try {
             ImageIO.write(bufferedImage, "jpg", outputfile2);
         } catch (IOException e) {

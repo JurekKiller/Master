@@ -5,15 +5,19 @@ import org.opencv.core.Core;
 import org.opencv.core.Mat;
 import org.opencv.imgcodecs.Imgcodecs;
 import sample.BorderHistorgram.Graph;
+import sample.BorderHistorgram.HoughTransformation;
+import sample.BorderHistorgram.Photo;
 import sample.BorderHistorgram.Plate;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Random;
 
+import static java.awt.image.BufferedImage.TYPE_BYTE_GRAY;
 import static sample.FormatConverter.MatToBufferImage;
 
 public class SWTTest {
@@ -26,10 +30,30 @@ public class SWTTest {
 
         Arrays.stream(files).forEach(images -> System.out.println("LOADED : " + images.getName()));
 
-
         System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
+        File file = new File("adaptiveThresholding/threshold11027.jpg");
+        FileInputStream fis = new FileInputStream(file);
+        Photo p = new Photo(fis);
+        HoughTransformation hough = p.getHoughTransformation();
+        Photo transformed =
+                new Photo(hough.render(HoughTransformation.RENDER_TRANSFORMONLY, HoughTransformation.COLOR_HUE));
 
-        Arrays.stream(files).forEach(images -> BorderHistogram(images.getName()));
+        float a = hough.getDx();
+        float b = hough.getDy();
+        float an = hough.getAngle();
+        float c = (float) ((180 * Math.atan(b / a)) / Math.PI);
+
+        transformed.saveImage("DUPA.jpg");
+        p.close();
+        transformed.close();
+
+
+        Mat aaa = Imgcodecs.imread("adaptiveThresholding/threshold11027.jpg");
+
+        BufferedImage bufferedImage = Rotation.rotateImage(FormatConverter.MatToBufferImage(aaa), (float) an, TYPE_BYTE_GRAY);
+        FormatConverter.saveToImage(bufferedImage);
+
+        //  Arrays.stream(files).forEach(images -> BorderHistogram(images.getName()));
 
 
         // Mat dstImage = new Mat();
@@ -131,10 +155,15 @@ public class SWTTest {
         Graph graph = new Graph();
 
         Plate plate = new Plate(MatToBufferImage(srcImage2));
+        HoughTransformation aa = plate.getHoughTransformation();
+        System.out.println("Angle" + aa.getAngle());
         plate.normalize();
+        HoughTransformation aad = plate.getHoughTransformation();
+        System.out.println("Angle" + aad.getAngle());
         BufferedImage a = plate.renderGraph();
         System.out.println(a.getWidth() + " widthcrop" + ":::" + a.getHeight() + "wysokosc");
-
+        HoughTransformation as = plate.getHoughTransformation();
+        System.out.println("Angle" + as.getAngle());
 
         int k = n;
         try {
