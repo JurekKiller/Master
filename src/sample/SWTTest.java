@@ -17,7 +17,6 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.Random;
 
-import static java.awt.image.BufferedImage.TYPE_BYTE_GRAY;
 import static sample.FormatConverter.MatToBufferImage;
 
 public class SWTTest {
@@ -31,7 +30,7 @@ public class SWTTest {
         Arrays.stream(files).forEach(images -> System.out.println("LOADED : " + images.getName()));
 
         System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
-        File file = new File("adaptiveThresholding/threshold11027.jpg");
+        File file = new File("Cropped/croppingImg1030.jpg");
         FileInputStream fis = new FileInputStream(file);
         Photo p = new Photo(fis);
         HoughTransformation hough = p.getHoughTransformation();
@@ -48,10 +47,10 @@ public class SWTTest {
         transformed.close();
 
 
-        Mat aaa = Imgcodecs.imread("adaptiveThresholding/threshold11027.jpg");
+        Mat aaa = Imgcodecs.imread("Cropped/croppingImg1030.jpg");
 
-        BufferedImage bufferedImage = Rotation.rotateImage(FormatConverter.MatToBufferImage(aaa), (float) an, TYPE_BYTE_GRAY);
-        FormatConverter.saveToImage(bufferedImage);
+        // BufferedImage bufferedImage = Rotation.rotateImage(FormatConverter.MatToBufferImage(aaa), (float) an, TYPE_BYTE_GRAY);
+        //  FormatConverter.saveToImage(bufferedImage);
 
         //  Arrays.stream(files).forEach(images -> BorderHistogram(images.getName()));
 

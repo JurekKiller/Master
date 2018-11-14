@@ -51,6 +51,11 @@ public class Photo implements AutoCloseable, Cloneable {
         return hsb[2];
     }
 
+    public float getBrightness(int x, int y) {
+        return Photo.getPixel(image, x, y);
+        //   return Photo.getBrightness(image, x, y);
+    }
+
     public static float getSaturation(BufferedImage image, int x, int y) {
         int r = image.getRaster().getSample(x, y, 0);
         int g = image.getRaster().getSample(x, y, 1);
@@ -110,7 +115,7 @@ public class Photo implements AutoCloseable, Cloneable {
     }
 
     public static BufferedImage duplicateBufferedImage(BufferedImage image) {
-        BufferedImage imageCopy = new BufferedImage(image.getWidth(), image.getHeight(), BufferedImage.TYPE_INT_RGB);
+        BufferedImage imageCopy = new BufferedImage(image.getWidth(), image.getHeight(), BufferedImage.TYPE_BYTE_GRAY);
         imageCopy.setData(image.getData());
         return imageCopy;
     }
@@ -205,9 +210,7 @@ public class Photo implements AutoCloseable, Cloneable {
         image.setRGB(x, y, new Color(value, value, value).getRGB());
     }
 
-    public float getBrightness(int x, int y) {
-        return Photo.getBrightness(image, x, y);
-    }
+
 
     public float getSaturation(int x, int y) {
         return Photo.getSaturation(image, x, y);
@@ -234,6 +237,7 @@ public class Photo implements AutoCloseable, Cloneable {
         File destination = new File(filepath);
         ImageIO.write(image, type, destination);
     }
+
 
     public void normalizeBrightness(float coef) {
         Statistics stats = new Statistics(this);
@@ -303,7 +307,7 @@ public class Photo implements AutoCloseable, Cloneable {
         float[][] array = new float[w][h];
         for (int x = 0; x < w; x++) {
             for (int y = 0; y < h; y++) {
-                array[x][y] = Photo.getBrightness(image, x, y);
+                array[x][y] = Photo.getPixel(image, x, y);
             }
         }
         return array;

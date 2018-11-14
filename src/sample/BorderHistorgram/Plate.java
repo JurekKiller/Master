@@ -19,8 +19,10 @@ package sample.BorderHistorgram;
 import net.sf.javaanpr.configurator.Configurator;
 
 import java.awt.image.*;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class Plate extends Photo implements Cloneable {
 
@@ -100,9 +102,11 @@ public class Plate extends Photo implements Cloneable {
      * {@link Plate#cutLeftRight(BufferedImage, PlateHorizontalGraph)} crop the original image using horizontal and
      * vertical projections of the cloned image (which is thresholded).
      */
-    public void normalize() {
+    public BufferedImage normalize() {
+        Random rand = new Random();
+        int n = rand.nextInt(50000) + 1;
         Plate clone1 = clone();
-        // clone1.verticalEdgeDetector(clone1.getImage());
+        //clone1.verticalEdgeDetector(clone1.getImage());
         PlateVerticalGraph vertical = clone1.histogramYaxis(clone1.getImage());
         setImage(cutTopBottom(getImage(), vertical));
         plateCopy.setImage(cutTopBottom(plateCopy.getImage(), vertical));
@@ -114,6 +118,12 @@ public class Plate extends Photo implements Cloneable {
         PlateHorizontalGraph horizontal = clone2.histogramXaxis(clone2.getImage());
         setImage(cutLeftRight(getImage(), horizontal));
         plateCopy.setImage(cutLeftRight(plateCopy.getImage(), horizontal));
+        try {
+            saveImage("BorderH/sabed0" + n + ".jpg");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return getImage();
 
     }
 
@@ -183,7 +193,7 @@ public class Plate extends Photo implements Cloneable {
             float counter = 0;
             float counter2 = 0;
             for (int x = 0; x < w; x++) {
-                counter += Photo.getBrightness(bi, x, y);
+                counter += Photo.getPixel(bi, x, y);
                 // counter += Photo.getPixel(bi,x,y);
 
             }
@@ -201,7 +211,7 @@ public class Plate extends Photo implements Cloneable {
             float counter = 0;
             for (int y = 0; y < h; y++) {
                 // counter += Photo.getPixel(bi,x,y);
-                counter += Photo.getBrightness(bi, x, y);
+                counter += Photo.getPixel(bi, x, y);
             }
             graph.addPeak(counter);
         }
