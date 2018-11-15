@@ -62,7 +62,10 @@ public class PlateHorizontalGraph extends Graph {
         while (yValues.get(a) < average) {
             a++;
         }
+
         while ((yValues.get(b) < average) || checkCondition(a, b)) {
+            boolean bb = yValues.get(b) < average;
+            System.out.println(bb);
             b--;
         }
         List<Peak> outPeaks = new ArrayList<>();
@@ -76,10 +79,10 @@ public class PlateHorizontalGraph extends Graph {
     }
 
     private boolean checkCondition(int a, int b) {
-        boolean result = true;
+        boolean result = false;
         for (int i = b; i > a; i--) {
-            if (yValues.get(i) == 0) {
-                result = false;
+            if (yValues.get(i) < (getAverageValue() / 100)) {
+                result = true;
             }
         }
         return result;

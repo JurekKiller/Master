@@ -3,7 +3,7 @@ package sample;
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
 import org.opencv.imgcodecs.Imgcodecs;
-import sample.BorderHistorgram.Plate;
+import sample.BorderHistorgram.*;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -16,8 +16,38 @@ import static sample.Filter.medianFilter;
 
 public class TaskScheduler {
     public static void main(String[] args) {
+
+//
+
+        List<BufferedImage> tablice = detekcjaTablcy();
+
+
+        //    List<BufferedImage> walidacja = tablice.stream().map(newPlate -> new Plate(newPlate).renderGraph()).collect(Collectors.toList());//
+
+
+        List<BufferedImage> readyFormOCR = tablice.stream()
+                .map(angle -> Rotation.rotateImage(angle))
+                .map(newPlate -> new Plate(newPlate))
+                .map(borderHistorgram -> borderHistorgram.normalize())
+                .collect(Collectors.toList());
+
+
+        readyFormOCR.parallelStream().forEach(StringDetection::ConvertImageToString);
+
+
+//
+//        ac.stream().forEach(StringDetection::ConvertImageToString);
+        // System.out.println(a.size());
+        //    System.out.println("end");
+        System.out.println("");
+
+    }
+
+
+    public static List<BufferedImage> detekcjaTablcy() {
+
         System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
-        File rootDir = new File("test");
+        File rootDir = new File("Samochody");
         File[] files = rootDir.listFiles();
         Plate plate;
 
@@ -46,7 +76,7 @@ public class TaskScheduler {
                 .collect(Collectors.toList());
 
 
-        List<BufferedImage> ac = a.stream()
+        return a.stream()
                 .map(Thresholding::adaptiveThresholding)
                 .map(FormatConverter::MatToBufferImage)
                 //   .map(SWTransform::SWTransform)
@@ -55,23 +85,6 @@ public class TaskScheduler {
                 //   .map(Thresholding::adaptiveThresholding)
                 //    .map(MatToBufferImage::MatToBufferImage)
                 .collect(Collectors.toList());
-//
-        List<BufferedImage> readyFormOCR = ac.stream()
-                .map(angle -> Rotation.rotateImage(angle))
-                .map(newPlate -> new Plate(newPlate))
-                .map(borderHistorgram -> borderHistorgram.normalize())
-                .collect(Collectors.toList());
-
-
-        readyFormOCR.parallelStream().forEach(StringDetection::ConvertImageToString);
-
-
-//
-//        ac.stream().forEach(StringDetection::ConvertImageToString);
-        // System.out.println(a.size());
-        //    System.out.println("end");
-        System.out.println("");
-
     }
 
 }

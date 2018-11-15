@@ -17,7 +17,6 @@
 package sample.BorderHistorgram;
 
 import net.sf.javaanpr.configurator.Configurator;
-import sample.FormatConverter;
 
 import java.awt.image.BufferedImage;
 import java.awt.image.BufferedImageOp;
@@ -129,7 +128,7 @@ public class Plate extends Photo implements Cloneable {
             e.printStackTrace();
         }
         BufferedImage bufferedImage = renderGraph();
-        FormatConverter.saveToImage(bufferedImage);
+        //    FormatConverter.saveToImage(bufferedImage);
         return getImage();
 
     }
@@ -180,11 +179,18 @@ public class Plate extends Photo implements Cloneable {
         return origin;
     }
 
+    @SuppressWarnings("OptionalGetWithoutIsPresent")
     private static Peak getBestVerticalPeak(List<Peak> peaks) {
+
         Comparator<Peak> comparator = Comparator.comparing(x -> x.getDiff());
         return peaks.stream()
-                .filter(x -> x.getLeft() > 14)
+                .filter(x -> x.getLeft() > 10)
                 .max(comparator).get();
+
+    }
+
+    private boolean validate(List<Peak> peaks) {
+        return !peaks.isEmpty();
 
     }
 
