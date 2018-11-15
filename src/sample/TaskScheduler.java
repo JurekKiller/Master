@@ -47,7 +47,7 @@ public class TaskScheduler {
     public static List<BufferedImage> detekcjaTablcy() {
 
         System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
-        File rootDir = new File("Samochody");
+        File rootDir = new File("test");
         File[] files = rootDir.listFiles();
         Plate plate;
 

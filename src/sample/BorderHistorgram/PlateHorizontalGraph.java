@@ -65,7 +65,6 @@ public class PlateHorizontalGraph extends Graph {
 
         while ((yValues.get(b) < average) || checkCondition(a, b)) {
             boolean bb = yValues.get(b) < average;
-            System.out.println(bb);
             b--;
         }
         List<Peak> outPeaks = new ArrayList<>();
