@@ -6,7 +6,6 @@ import org.opencv.core.Mat;
 import org.opencv.imgcodecs.Imgcodecs;
 import sample.BorderHistorgram.Graph;
 import sample.BorderHistorgram.HoughTransformation;
-import sample.BorderHistorgram.Photo;
 import sample.BorderHistorgram.Plate;
 
 import javax.imageio.ImageIO;
@@ -14,44 +13,44 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.Random;
 
 import static sample.FormatConverter.MatToBufferImage;
 
 public class SWTTest {
     public static void main(String[] args) throws IOException {
-
-
-        File rootDir = new File("adaptiveThresholding");
-        File[] files = rootDir.listFiles();
-
-
-        Arrays.stream(files).forEach(images -> System.out.println("LOADED : " + images.getName()));
-
         System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
-        File file = new File("Cropped/croppingImg1030.jpg");
-        FileInputStream fis = new FileInputStream(file);
-        Photo p = new Photo(fis);
-        HoughTransformation hough = p.getHoughTransformation();
-        Photo transformed =
-                new Photo(hough.render(HoughTransformation.RENDER_TRANSFORMONLY, HoughTransformation.COLOR_HUE));
+//
+//        File rootDir = new File("adaptiveThresholding");
+//        File[] files = rootDir.listFiles();
 
-        float a = hough.getDx();
-        float b = hough.getDy();
-        float an = hough.getAngle();
-        float c = (float) ((180 * Math.atan(b / a)) / Math.PI);
+//
+//        Arrays.stream(files).forEach(images -> System.out.println("LOADED : " + images.getName()));
 
-        transformed.saveImage("DUPA.jpg");
-        p.close();
-        transformed.close();
+//        System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
+//        File file = new File("test/croppingImg831.jpg");
+//        FileInputStream fis = new FileInputStream(file);
+//        Photo p = new Photo(fis);
+//        HoughTransformation hough = p.getHoughTransformation();
+//        Photo transformed =
+//                new Photo(hough.render(HoughTransformation.RENDER_TRANSFORMONLY, HoughTransformation.COLOR_HUE));
+//
+//        float a = hough.getDx();
+//        float b = hough.getDy();
+//        float an = hough.getAngle();
+//        float c = (float) ((180 * Math.atan(b / a)) / Math.PI);
+//
+//     //   transformed.saveImage("DUPA.jpg");
 
+        //   FormatConverter.saveToImage(p.getImage());
 
-        Mat aaa = Imgcodecs.imread("Cropped/croppingImg1030.jpg");
-
-        // BufferedImage bufferedImage = Rotation.rotateImage(FormatConverter.MatToBufferImage(aaa), (float) an, TYPE_BYTE_GRAY);
-        //  FormatConverter.saveToImage(bufferedImage);
-
+//        Mat aaa = Imgcodecs.imread("test/threshold22171.jpg");
+//        BufferedImage image = FormatConverter.MatToBufferImage(aaa);
+//
+//        BufferedImage bufferedImage = Rotation.rotateImage(image);
+//        FormatConverter.saveToImage(bufferedImage);
+//        p.close();
+//        transformed.close();
         //  Arrays.stream(files).forEach(images -> BorderHistogram(images.getName()));
 
 
@@ -78,6 +77,24 @@ public class SWTTest {
 //        List<Char> chars = aa3.getChars();
 //        Char pp = chars.get(0);
 //        pp.normalize();
+
+        File file = new File("Cropped/croppingImg1508.jpg");
+        FileInputStream fis = new FileInputStream(file);
+        Mat a = Imgcodecs.imread("Cropped/croppingImg3903.jpg");
+        BufferedImage image = FormatConverter.MatToBufferImage(a);
+//        Plate plat = new Plate(image);
+        // plat.adaptiveThresholding();
+        Plate photo = new Plate(image);
+        // photo.adaptiveThresholding();
+        photo.normalizeBrightness((float) 0.7);
+
+        photo.saveImage("dupa.jpg");
+        //  photo.adaptiveThresholding();
+        photo.normalize();
+        BufferedImage render = photo.renderGraph();
+        FormatConverter.saveToImage(render);
+
+        photo.saveImage("dupaN.jpg");
 
 
 

@@ -17,7 +17,7 @@ import static sample.Filter.medianFilter;
 public class TaskScheduler {
     public static void main(String[] args) {
         System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
-        File rootDir = new File("Samochody");
+        File rootDir = new File("Final");
         File[] files = rootDir.listFiles();
         Plate plate;
 
@@ -34,19 +34,19 @@ public class TaskScheduler {
                 .collect(Collectors.toList());
 
 
-        List<Mat> ab = listOfImages.parallelStream()
+        List<Mat> ab = listOfImages.stream()
                 .map(ImageBlurring::medianBlurring)
                 .collect(Collectors.toList());
 
 
-        List<Mat> a = ab.parallelStream()
+        List<Mat> a = ab.stream()
                 .map(LicenceClassifier::rectangleDetection)
                 // .map(x -> adaptiveThresholding(x))
                 .map(y -> medianFilter(y))
                 .collect(Collectors.toList());
 
 
-        List<BufferedImage> ac = a.parallelStream()
+        List<BufferedImage> ac = a.stream()
                 .map(Thresholding::adaptiveThresholding)
                 .map(FormatConverter::MatToBufferImage)
                 //   .map(SWTransform::SWTransform)
@@ -56,10 +56,10 @@ public class TaskScheduler {
                 //    .map(MatToBufferImage::MatToBufferImage)
                 .collect(Collectors.toList());
 //
-        List<BufferedImage> readyFormOCR = ac.parallelStream()
-                .map(y -> Rotation.rotateImage(y))
-                .map(z -> new Plate(z))
-                .map(x -> x.normalize())
+        List<BufferedImage> readyFormOCR = ac.stream()
+                .map(angle -> Rotation.rotateImage(angle))
+                .map(newPlate -> new Plate(newPlate))
+                .map(borderHistorgram -> borderHistorgram.normalize())
                 .collect(Collectors.toList());
 
 

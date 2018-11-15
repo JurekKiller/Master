@@ -26,14 +26,14 @@ public class FormatConverter {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        saveToImage(bi);
+        //   saveToImage(bi);
         return bi;
     }
 
     public static void saveToImage(BufferedImage bufferedImage) {
         Random rand = new Random();
         int n = rand.nextInt(50000) + 1;
-        File outputfile2 = new File("BorderHistorgram/BufferImage" + n + ".jpg");
+        File outputfile2 = new File("test/rotated" + n + ".jpg");
         try {
             ImageIO.write(bufferedImage, "jpg", outputfile2);
         } catch (IOException e) {

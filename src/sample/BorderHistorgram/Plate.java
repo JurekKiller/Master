@@ -18,9 +18,13 @@ package sample.BorderHistorgram;
 
 import net.sf.javaanpr.configurator.Configurator;
 
-import java.awt.image.*;
+import java.awt.image.BufferedImage;
+import java.awt.image.BufferedImageOp;
+import java.awt.image.ConvolveOp;
+import java.awt.image.Kernel;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Random;
 
@@ -114,7 +118,7 @@ public class Plate extends Photo implements Cloneable {
 //        if (Plate.horizontalDetectionType == 1) {
 //            clone2.horizontalEdgeDetector(clone2.getImage());
 //        }
-        // clone2.horizontalEdgeDetector(clone2.getImage());
+        // clone2.horizontalEdgeDetector(clone1.getImage());
         PlateHorizontalGraph horizontal = clone2.histogramXaxis(clone2.getImage());
         setImage(cutLeftRight(getImage(), horizontal));
         plateCopy.setImage(cutLeftRight(plateCopy.getImage(), horizontal));
@@ -136,7 +140,7 @@ public class Plate extends Photo implements Cloneable {
 
 
         Plate clone2 = clone();
-        // clone2.verticalEdgeDetector(clone2.getImage());
+        clone2.verticalEdgeDetector(clone2.getImage());
         PlateVerticalGraph vertical = clone2.histogramYaxis(clone2.getImage());
         setImage(cutTopBottom(getImage(), vertical));
         plateCopy.setImage(cutTopBottom(plateCopy.getImage(), vertical));
@@ -147,7 +151,8 @@ public class Plate extends Photo implements Cloneable {
 
     private BufferedImage cutTopBottom(BufferedImage origin, PlateVerticalGraph graph) {
         graph.applyProbabilityDistributor(new Graph.ProbabilityDistributor(0f, 0f, 2, 2));
-        Peak p = graph.findPeak(3).get(0);
+        List<Peak> peaks = graph.findPeak(3);
+        Peak p = getBestVerticalPeak(peaks);
         return origin.getSubimage(0, p.getLeft(), getImage().getWidth(), p.getDiff());
     }
 
@@ -171,12 +176,22 @@ public class Plate extends Photo implements Cloneable {
         return origin;
     }
 
+    private static Peak getBestVerticalPeak(List<Peak> peaks) {
+        Comparator<Peak> comparator = Comparator.comparing(x -> x.getDiff());
+        return peaks.stream()
+                .filter(x -> x.getLeft() > 20)
+                .max(comparator).get();
+
+    }
+
+
+
     public PlateGraph histogram(BufferedImage bi) {
         PlateGraph graph = new PlateGraph(this);
         for (int x = 0; x < bi.getWidth(); x++) {
             float counter = 0;
             for (int y = 0; y < bi.getHeight(); y++) {
-                counter += Photo.getBrightness(bi, x, y);
+                counter += Photo.getPixel(bi, x, y);
             }
             graph.addPeak(counter);
         }
