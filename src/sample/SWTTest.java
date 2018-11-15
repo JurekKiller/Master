@@ -92,7 +92,7 @@ public class SWTTest {
         //  photo.adaptiveThresholding();
         photo.normalize();
         BufferedImage render = photo.renderGraph();
-        FormatConverter.saveToImage(render);
+        //  FormatConverter.saveToImage(render);
 
         photo.saveImage("dupaN.jpg");
 
