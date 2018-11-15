@@ -17,7 +17,7 @@ import static sample.Filter.medianFilter;
 public class TaskScheduler {
     public static void main(String[] args) {
         System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
-        File rootDir = new File("Final");
+        File rootDir = new File("test");
         File[] files = rootDir.listFiles();
         Plate plate;
 

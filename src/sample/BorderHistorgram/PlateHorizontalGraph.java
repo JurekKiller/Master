@@ -55,19 +55,33 @@ public class PlateHorizontalGraph extends Graph {
 
     public List<Peak> findPeakEdgedetection() {
         float average = getAverageValue();
+        int c = 0;
         int a = 0;
         int b = yValues.size() - 1;
         while (yValues.get(a) < average) {
             a++;
         }
-        while (yValues.get(b) < average) {
+        while ((yValues.get(b) < average)) {
             b--;
         }
         List<Peak> outPeaks = new ArrayList<>();
-        a = Math.max(a - 5, 0);
-        b = Math.min(b + 5, yValues.size());
-        outPeaks.add(new Peak(a, b));
+//        a = Math.max(a - 5, 0);
+//        b = Math.min(b + 5, yValues.size());
+        outPeaks.add(checkCondition(a, b));
         super.peaks = outPeaks;
         return outPeaks;
+    }
+
+    private Peak checkCondition(int a, int b) {
+        for (int i = b; i == a; i--) {
+
+            if (yValues.get(i) != 0) {
+                a = Math.max(a - 5, 0);
+                b = Math.min(b + 5, yValues.size());
+                return new Peak(a, b);
+            }
+
+        }
+        return null;
     }
 }

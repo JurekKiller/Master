@@ -17,6 +17,7 @@
 package sample.BorderHistorgram;
 
 import net.sf.javaanpr.configurator.Configurator;
+import sample.FormatConverter;
 
 import java.awt.image.BufferedImage;
 import java.awt.image.BufferedImageOp;
@@ -127,6 +128,8 @@ public class Plate extends Photo implements Cloneable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        BufferedImage bufferedImage = renderGraph();
+        FormatConverter.saveToImage(bufferedImage);
         return getImage();
 
     }
@@ -160,8 +163,9 @@ public class Plate extends Photo implements Cloneable {
         graph.applyProbabilityDistributor(new Graph.ProbabilityDistributor(0f, 0f, 2, 2));
         int width = origin.getWidth();
         int heiht = origin.getHeight();
-        List<Peak> peaks2 = listOfPeaks();
+
         List<Peak> peaks = graph.findPeak();
+        List<Peak> peaks2 = listOfPeaks();
 //        peaks.size();
 //        crop(origin,);
         // Scalr.crop(origin,60,origin.getHeight());
@@ -179,7 +183,7 @@ public class Plate extends Photo implements Cloneable {
     private static Peak getBestVerticalPeak(List<Peak> peaks) {
         Comparator<Peak> comparator = Comparator.comparing(x -> x.getDiff());
         return peaks.stream()
-                .filter(x -> x.getLeft() > 20)
+                .filter(x -> x.getLeft() > 14)
                 .max(comparator).get();
 
     }
