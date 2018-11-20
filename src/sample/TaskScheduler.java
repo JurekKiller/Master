@@ -22,7 +22,7 @@ public class TaskScheduler {
         List<BufferedImage> tablice = detekcjaTablcy();
 
 
-        //    List<BufferedImage> walidacja = tablice.stream().map(newPlate -> new Plate(newPlate).renderGraph()).collect(Collectors.toList());//
+        List<BufferedImage> walidacja = tablice.stream().map(newPlate -> new Plate(newPlate).renderGraph()).collect(Collectors.toList());//
 
 
         List<BufferedImage> readyFormOCR = tablice.stream()
@@ -47,7 +47,7 @@ public class TaskScheduler {
     public static List<BufferedImage> detekcjaTablcy() {
 
         System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
-        File rootDir = new File("test");
+        File rootDir = new File("Samochody");
         File[] files = rootDir.listFiles();
         Plate plate;
 

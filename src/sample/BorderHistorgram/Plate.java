@@ -17,6 +17,7 @@
 package sample.BorderHistorgram;
 
 import net.sf.javaanpr.configurator.Configurator;
+import sample.FormatConverter;
 
 import java.awt.image.BufferedImage;
 import java.awt.image.BufferedImageOp;
@@ -27,6 +28,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Random;
+import java.util.stream.Collectors;
 
 public class Plate extends Photo implements Cloneable {
 
@@ -120,6 +122,9 @@ public class Plate extends Photo implements Cloneable {
 //        }
         // clone2.horizontalEdgeDetector(clone1.getImage());
         PlateHorizontalGraph horizontal = clone2.histogramXaxis(clone2.getImage());
+        BufferedImage bufferedImage = clone().renderGraph();
+        FormatConverter.saveToImage(bufferedImage);
+
         setImage(cutLeftRight(getImage(), horizontal));
         plateCopy.setImage(cutLeftRight(plateCopy.getImage(), horizontal));
         try {
@@ -127,7 +132,7 @@ public class Plate extends Photo implements Cloneable {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        BufferedImage bufferedImage = renderGraph();
+
         //    FormatConverter.saveToImage(bufferedImage);
         return getImage();
 
@@ -144,6 +149,8 @@ public class Plate extends Photo implements Cloneable {
         Plate clone2 = clone();
         clone2.verticalEdgeDetector(clone2.getImage());
         PlateVerticalGraph vertical = clone2.histogramYaxis(clone2.getImage());
+        BufferedImage bufferedImage = clone().renderGraph();
+
         setImage(cutTopBottom(getImage(), vertical));
         plateCopy.setImage(cutTopBottom(plateCopy.getImage(), vertical));
 
@@ -179,13 +186,23 @@ public class Plate extends Photo implements Cloneable {
         return origin;
     }
 
-    @SuppressWarnings("OptionalGetWithoutIsPresent")
+
     private static Peak getBestVerticalPeak(List<Peak> peaks) {
 
         Comparator<Peak> comparator = Comparator.comparing(x -> x.getDiff());
-        return peaks.stream()
+        Comparator<Peak> comparator2 = Comparator.comparing(x -> x.getDiff() < 10);
+        List<Peak> lista = peaks.stream()
                 .filter(x -> x.getLeft() > 10)
-                .max(comparator).get();
+                .collect(Collectors.toList());
+
+        if (lista.isEmpty()) {
+            return peaks.get(0);
+        }
+        if (lista.size() == 2) {
+            return peaks.stream().min(comparator2).get();
+
+        }
+        return lista.stream().max(comparator).get();
 
     }
 
