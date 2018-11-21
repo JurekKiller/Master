@@ -17,7 +17,6 @@
 package sample.BorderHistorgram;
 
 import net.sf.javaanpr.configurator.Configurator;
-import sample.FormatConverter;
 
 import java.awt.image.BufferedImage;
 import java.awt.image.BufferedImageOp;
@@ -122,9 +121,6 @@ public class Plate extends Photo implements Cloneable {
 //        }
         // clone2.horizontalEdgeDetector(clone1.getImage());
         PlateHorizontalGraph horizontal = clone2.histogramXaxis(clone2.getImage());
-        BufferedImage bufferedImage = clone().renderGraph();
-        FormatConverter.saveToImage(bufferedImage);
-
         setImage(cutLeftRight(getImage(), horizontal));
         plateCopy.setImage(cutLeftRight(plateCopy.getImage(), horizontal));
         try {
@@ -172,6 +168,11 @@ public class Plate extends Photo implements Cloneable {
 
         List<Peak> peaks = graph.findPeak();
         List<Peak> peaks2 = listOfPeaks();
+
+        if (peaks.get(0).getLeft() == peaks.get(0).getRight()) {
+            peaks.remove(0);
+            peaks.add(peaks2.get(1));
+        }
 //        peaks.size();
 //        crop(origin,);
         // Scalr.crop(origin,60,origin.getHeight());

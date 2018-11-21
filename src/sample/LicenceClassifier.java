@@ -11,12 +11,12 @@ import java.util.Random;
 public class LicenceClassifier {
 
 
-    public static Mat rectangleDetection(Mat image){
+    public static Mat rectangleDetection(Mat image, String XLM) {
         Random rand = new Random();
 
         int  n = rand.nextInt(5000) + 1;
 
-        CascadeClassifier cascadeClassifier = new CascadeClassifier("haarcascade_russian_plate_number.xml");
+        CascadeClassifier cascadeClassifier = new CascadeClassifier(XLM);
         MatOfRect rectangleD = new MatOfRect();
 
         cascadeClassifier.detectMultiScale(image, rectangleD);
@@ -29,7 +29,10 @@ public class LicenceClassifier {
         }
         Mat markedRectangle;
         if(rectCrop==null){
-            return Imgcodecs.imread("404.jpg");
+            Mat unrecognised = Imgcodecs.imread("404.jpg");
+            Mat retuned = new Mat();
+            Imgproc.cvtColor(unrecognised, retuned, Imgproc.COLOR_RGB2GRAY);
+            return retuned;
         }
         else{
            markedRectangle=  new Mat(image, rectCrop);

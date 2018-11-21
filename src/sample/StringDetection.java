@@ -11,8 +11,10 @@ public class StringDetection {
             //ConvertThresholding();
             //BufferedImage bufferedImage = MatToBufferImage.MatToBufferImage(ConvertThresholding());
             tesseract.setDatapath("tessdata");
+            FormatConverter.saveToImage(image);
+
             String string = tesseract.doOCR(image);
-//            String text = tesseract.doOCR(new File("C:/Users/Pawel/Desktop/Projekt Inż/SerialDetector/BorderH/sabed031839.jpg"));
+            //         String text = tesseract.doOCR(new File("C:/Users/Pawel/Desktop/Projekt Inż/SerialDetector/BorderH/sabed010030.jpg"));
             System.out.println(string);
         } catch (Exception e) {
             e.printStackTrace();

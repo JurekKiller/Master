@@ -2,15 +2,20 @@ package sample;
 
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
+import org.opencv.core.Point;
+import org.opencv.core.Size;
 import org.opencv.imgcodecs.Imgcodecs;
 import org.opencv.imgproc.Imgproc;
 
 import java.util.Random;
 
+import static org.opencv.imgcodecs.Imgcodecs.CV_LOAD_IMAGE_COLOR;
+import static org.opencv.imgcodecs.Imgcodecs.CV_LOAD_IMAGE_UNCHANGED;
+
 
 public class Thresholding {
 
-    public static Mat adaptiveThresholding(Mat srcImage) {
+    public static Mat adaptiveThresholding(Mat srcImage, int Settings) {
         int Cooooo3 = 3;
         int Cooooo5 = 5;
         int Cooooo7 = 13;
@@ -25,13 +30,15 @@ public class Thresholding {
         int kernelSize = 11;
 
 
-//       Imgproc.cvtColor(srcImage  , disImag, Imgproc.COLOR_RGB2GRAY);
+        if (Settings == CV_LOAD_IMAGE_UNCHANGED || Settings == CV_LOAD_IMAGE_COLOR) {
+            Imgproc.cvtColor(srcImage, srcImage, Imgproc.COLOR_RGB2GRAY);
+        }
         //Mat element = Imgproc.getStructuringElement(Imgproc.CV_SHAPE_RECT, new Size(2 * kernelSize + 1, 2 * kernelSize + 1),
         //    new Point(kernelSize, kernelSize));
         //Imgproc.morphologyEx(srcImage, dstImage, Imgproc.MORPH_BLACKHAT, element);
         //   Imgproc.adaptiveThreshold(srcImage, disImag2, 255, Imgproc.ADAPTIVE_THRESH_MEAN_C, Imgproc.THRESH_BINARY, 3, Cooooo7);
 
-//        Imgproc.cvtColor(srcImage, disImag, Imgproc.COLOR_RGB2GRAY);
+//      Imgproc.cvtColor(srcImage, disImag, Imgproc.COLOR_RGB2GRAY);
         //    Imgproc.threshold(srcImage, dstImage, 100, 255, 0);
         //  Mat kernel = Imgproc.getStructuringElement(Imgproc.CV_SHAPE_CROSS, new Size(1,1));
 
@@ -51,5 +58,17 @@ public class Thresholding {
 
 
         return dstImage;
+    }
+
+
+    public static Mat morfpH(Mat matImgSrc) {
+        int elementType = Imgproc.CV_SHAPE_ELLIPSE;
+        int kernelSize = 1;
+        Mat matImgDst = new Mat();
+        int morphOpType = Imgproc.MORPH_OPEN;
+        Mat element = Imgproc.getStructuringElement(elementType, new Size(2 * kernelSize + 1, 2 * kernelSize + 1),
+                new Point(kernelSize, kernelSize));
+        Imgproc.morphologyEx(matImgSrc, matImgDst, morphOpType, element);
+        return matImgDst;
     }
 }
