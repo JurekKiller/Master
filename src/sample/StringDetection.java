@@ -8,8 +8,6 @@ public class StringDetection {
     public static void ConvertImageToString(BufferedImage image) {
         Tesseract tesseract = new Tesseract();
         try {
-            //ConvertThresholding();
-            //BufferedImage bufferedImage = MatToBufferImage.MatToBufferImage(ConvertThresholding());
             tesseract.setDatapath("tessdata");
             FormatConverter.saveToImage(image);
 
