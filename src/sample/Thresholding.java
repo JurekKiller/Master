@@ -7,7 +7,10 @@ import org.opencv.core.Size;
 import org.opencv.imgcodecs.Imgcodecs;
 import org.opencv.imgproc.Imgproc;
 
+import java.awt.image.BufferedImage;
+import java.util.List;
 import java.util.Random;
+import java.util.stream.Collectors;
 
 import static org.opencv.imgcodecs.Imgcodecs.CV_LOAD_IMAGE_COLOR;
 import static org.opencv.imgcodecs.Imgcodecs.CV_LOAD_IMAGE_UNCHANGED;
@@ -15,7 +18,15 @@ import static org.opencv.imgcodecs.Imgcodecs.CV_LOAD_IMAGE_UNCHANGED;
 
 public class Thresholding {
 
-    public static Mat adaptiveThresholding(Mat srcImage, int Settings) {
+    public static List<BufferedImage> imageThreshold(List<Mat> croppedPlateList, int settings) {
+        return croppedPlateList.stream()
+                .map(image -> Thresholding.threshold(image, settings))
+                .map(FormatConverter::MatToBufferImage)
+                .collect(Collectors.toList());
+    }
+
+
+    private static Mat threshold(Mat srcImage, int Settings) {
         int Cooooo3 = 3;
         int Cooooo5 = 5;
         int Cooooo7 = 13;
@@ -33,26 +44,9 @@ public class Thresholding {
         if (Settings == CV_LOAD_IMAGE_UNCHANGED || Settings == CV_LOAD_IMAGE_COLOR) {
             Imgproc.cvtColor(srcImage, srcImage, Imgproc.COLOR_RGB2GRAY);
         }
-        //Mat element = Imgproc.getStructuringElement(Imgproc.CV_SHAPE_RECT, new Size(2 * kernelSize + 1, 2 * kernelSize + 1),
-        //    new Point(kernelSize, kernelSize));
-        //Imgproc.morphologyEx(srcImage, dstImage, Imgproc.MORPH_BLACKHAT, element);
-        //   Imgproc.adaptiveThreshold(srcImage, disImag2, 255, Imgproc.ADAPTIVE_THRESH_MEAN_C, Imgproc.THRESH_BINARY, 3, Cooooo7);
 
-//      Imgproc.cvtColor(srcImage, disImag, Imgproc.COLOR_RGB2GRAY);
-        //    Imgproc.threshold(srcImage, dstImage, 100, 255, 0);
-        //  Mat kernel = Imgproc.getStructuringElement(Imgproc.CV_SHAPE_CROSS, new Size(1,1));
 
         Imgproc.threshold(srcImage, dstImage, 0, 255, Imgproc.THRESH_OTSU | Imgproc.THRESH_BINARY); // not bad !!
-
-        //   Imgproc.morphologyEx(srcImage,disImag,Imgproc.MORPH_OPEN,new Mat(new Size(3, 3), CvType.CV_8U, new Scalar(255)));
-
-        // Imgproc.morphologyEx(dstImage,disImag2,Imgproc.MORPH_CLOSE,new Mat(new Size(3, 3), CvType.CV_8U, new Scalar(255)));
-
-
-        //  Imgproc.Canny(disImag2,matImgDstInv,0,255);
-        //  Imgproc.morphologyEx(disImag2,disImag,Imgproc.MORPH_HITMISS,kernel);
-        //Imgproc.morphologyEx(disImag2, disImag, Imgproc.MORPH_ERODE, kernel);
-        //  Core.bitwise_not(disImag, matImgDstInv);
 
         Imgcodecs.imwrite("adaptiveThresholding/threshold" + n + ".jpg", dstImage);
 

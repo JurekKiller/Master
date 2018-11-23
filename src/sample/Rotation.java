@@ -5,21 +5,26 @@ import sample.BorderHistorgram.Photo;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import static java.awt.image.BufferedImage.TYPE_BYTE_GRAY;
 
-public class Rotation {
+class Rotation {
 
-    public static BufferedImage rotateImage(BufferedImage image) {
+    protected static List<BufferedImage> rotation(List<BufferedImage> image) {
+        return image.stream()
+                .map(Rotation::rotateImageProcessing)
+                .collect(Collectors.toList());
+    }
+
+
+    private static BufferedImage rotateImageProcessing(BufferedImage image) {
 
         Photo p = new Photo(image);
         HoughTransformation hough = p.getHoughTransformation();
         Photo transformed =
                 new Photo(hough.render(HoughTransformation.RENDER_TRANSFORMONLY, HoughTransformation.COLOR_HUE));
-
-        float a = hough.getDx();
-        float b = hough.getDy();
-
         float angleDegrees = hough.getAngle();
 
         long start = System.currentTimeMillis();

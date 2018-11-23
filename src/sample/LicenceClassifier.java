@@ -6,12 +6,23 @@ import org.opencv.imgcodecs.Imgcodecs;
 import org.opencv.imgproc.Imgproc;
 import org.opencv.objdetect.CascadeClassifier;
 
+import java.util.List;
 import java.util.Random;
+import java.util.stream.Collectors;
 
 public class LicenceClassifier {
 
+    protected static List<Mat> cropPlate(List<Mat> imagesLoaded, String XML) {
+        System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
+        return imagesLoaded.stream()
+                .map(x -> LicenceClassifier.rectangleDetection(x, XML))
+                .map(Filter::medianFilter)
+                .collect(Collectors.toList());
+    }
 
-    public static Mat rectangleDetection(Mat image, String XLM) {
+
+    private static Mat rectangleDetection(Mat image, String XLM) {
+        System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
         Random rand = new Random();
 
         int  n = rand.nextInt(5000) + 1;
