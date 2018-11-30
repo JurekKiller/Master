@@ -31,7 +31,6 @@ public class FormatConverter {
 
     public static void saveToImage(BufferedImage bufferedImage) {
         Random rand = new Random();
-
         int n = rand.nextInt(50000) + 1;
         File outputfile2 = new File("test/render" + n + ".jpg");
         try {
@@ -63,28 +62,6 @@ public class FormatConverter {
 
 
     }
-
-    public static void negatywne(String name, File path, PrintStream printWriter) throws FileNotFoundException {
-        BufferedImage bufferedImage;
-
-
-        System.out.println(path.getAbsoluteFile().getAbsolutePath());
-        //read image file
-
-        System.out.println(name);
-        // create a blank, RGB, same width and height, and a white background
-        System.out.println("Done");
-
-        try {
-            Image image = ImageIO.read(new File(path.getAbsolutePath()));
-            printWriter.println("./negative_images/" + name);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-
-    }
-
 
 
 

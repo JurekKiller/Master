@@ -16,8 +16,6 @@
 
 package sample.BorderHistorgram;
 
-import net.sf.javaanpr.configurator.Configurator;
-
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.geom.AffineTransform;
@@ -239,15 +237,6 @@ public class Photo implements AutoCloseable, Cloneable {
     }
 
 
-    public void normalizeBrightness(float coef) {
-        Statistics stats = new Statistics(this);
-        for (int x = 0; x < getWidth(); x++) {
-            for (int y = 0; y < getHeight(); y++) {
-                Photo.setBrightness(image, x, y,
-                        stats.thresholdBrightness(Photo.getPixel(image, x, y), coef));
-            }
-        }
-    }
 
     // FILTERS
     public void linearResize(int width, int height) {
@@ -355,55 +344,13 @@ public class Photo implements AutoCloseable, Cloneable {
         return out;
     }
 
-    public void plainThresholding(Statistics stat) {
-        int width = getWidth();
-        int height = getHeight();
-        for (int x = 0; x < width; x++) {
-            for (int y = 0; y < height; y++) {
-                setBrightness(x, y, stat.thresholdBrightness(getBrightness(x, y), 1.0f));
-            }
-        }
-    }
 
     /**
      * Adaptive thresholding through GetNeighborhood.
      *
      * @deprecated The only use of this function should be in the constructor of {@link Plate}.
      */
-    public void adaptiveThresholding() {
-        Statistics stat = new Statistics(this);
-        int radius = Configurator.getConfigurator().getIntProperty("photo_adaptivethresholdingradius");
-        if (radius == 0) {
-            plainThresholding(stat);
-            return;
-        }
-        int width = getWidth();
-        int height = getHeight();
-        float[][] sourceArray = bufferedImageToArray(image, width, height);
-        float[][] destinationArray = bufferedImageToArray(image, width, height);
-        for (int x = 0; x < width; x++) {
-            for (int y = 0; y < height; y++) {
-                // compute neighborhood
-                int count = 0;
-                float neighborhood = 0.0f;
-                for (int ix = x - radius; ix <= (x + radius); ix++) {
-                    for (int iy = y - radius; iy <= (y + radius); iy++) {
-                        if ((ix >= 0) && (iy >= 0) && (ix < width) && (iy < height)) {
-                            neighborhood += sourceArray[ix][iy];
-                            count++;
-                        }
-                    }
-                }
-                neighborhood /= count;
-                if (destinationArray[x][y] < neighborhood) {
-                    destinationArray[x][y] = 0f;
-                } else {
-                    destinationArray[x][y] = 1f;
-                }
-            }
-        }
-        image = Photo.arrayToBufferedImage(destinationArray, width, height);
-    }
+
 
     public HoughTransformation getHoughTransformation() {
         HoughTransformation hough = new HoughTransformation(getWidth(), getHeight());
