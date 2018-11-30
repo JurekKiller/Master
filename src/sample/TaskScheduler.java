@@ -12,23 +12,24 @@ import java.util.stream.Collectors;
 
 import static java.util.Objects.requireNonNull;
 import static org.opencv.imgcodecs.Imgcodecs.CV_LOAD_IMAGE_COLOR;
+import static org.opencv.imgcodecs.Imgcodecs.CV_LOAD_IMAGE_GRAYSCALE;
 
 public class TaskScheduler {
     public static void main(String[] args) {
         System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
 
-//        System.out.println(Classifiers.map.get("HAARcascade_russia"));
-//        List<BufferedImage> haarcascade_rus = plateDetection(Classifiers.map.get("HAARcascade_russia"), CV_LOAD_IMAGE_GRAYSCALE);
-//        OCRrecognition(haarcascade_rus);
-//
-//        System.out.println(Classifiers.map.get("LBPcascade_europe"));
-//        String a = Classifiers.map.get("LBPcascade_europe");
-//        List<BufferedImage> lpdcascade_eu = plateDetection(Classifiers.map.get("LBPcascade_europe"), CV_LOAD_IMAGE_COLOR);
-//        OCRrecognition(lpdcascade_eu);
-//
-//        System.out.println(Classifiers.map.get("HAARcascade_europe"));
-//        List<BufferedImage> haarrcascade_eu_unchanged = plateDetection(Classifiers.map.get("HAARcascade_europe"), CV_LOAD_IMAGE_COLOR);
-//        OCRrecognition(haarrcascade_eu_unchanged);
+        System.out.println(Classifiers.map.get("HAARcascade_russia"));
+        List<BufferedImage> haarcascade_rus = plateDetection(Classifiers.map.get("HAARcascade_russia"), CV_LOAD_IMAGE_GRAYSCALE);
+        OCRrecognition(haarcascade_rus);
+
+        System.out.println(Classifiers.map.get("LBPcascade_europe"));
+        String a = Classifiers.map.get("LBPcascade_europe");
+        List<BufferedImage> lpdcascade_eu = plateDetection(Classifiers.map.get("LBPcascade_europe"), CV_LOAD_IMAGE_COLOR);
+        OCRrecognition(lpdcascade_eu);
+
+        System.out.println(Classifiers.map.get("HAARcascade_europe"));
+        List<BufferedImage> haarrcascade_eu_unchanged = plateDetection(Classifiers.map.get("HAARcascade_europe"), CV_LOAD_IMAGE_COLOR);
+        OCRrecognition(haarrcascade_eu_unchanged);
 
         System.out.println(Classifiers.map.get("HAARcascade_europe_rag"));
         List<BufferedImage> haarrcascade_eu_rag = plateDetection(Classifiers.map.get("HAARcascade_europe_rag"), CV_LOAD_IMAGE_COLOR);

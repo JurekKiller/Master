@@ -23,7 +23,6 @@ import java.awt.image.BufferedImageOp;
 import java.awt.image.ConvolveOp;
 import java.awt.image.Kernel;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Random;
@@ -43,7 +42,7 @@ public class Plate extends Photo implements Cloneable {
     public Plate(BufferedImage bi) {
         super(bi);
         plateCopy = new Plate(Photo.duplicateBufferedImage(getImage()), true);
-        plateCopy.adaptiveThresholding();
+
     }
 
     private Plate(BufferedImage bi, boolean isCopy) { // TODO refactor: remove this, is only a copy constructor
@@ -71,22 +70,6 @@ public class Plate extends Photo implements Cloneable {
         return graphHandle.peaks;
     }
 
-    public List<Char> getChars() {
-        List<Char> out = new ArrayList<>();
-        List<Peak> peaks = computeGraph();
-        for (Peak p : peaks) {
-            // Cut from the original image of the plate and save to a vector.
-            // ATTENTION: Cutting from original,
-            // we have to apply an inverse transformation to the coordinates calculated from imageCopy
-            if (p.getDiff() <= 0) {
-                continue;
-            }
-            out.add(new Char(getImage().getSubimage(p.getLeft(), 0, p.getDiff(), getImage().getHeight()),
-                    plateCopy.getImage().getSubimage(p.getLeft(), 0, p.getDiff(), getImage().getHeight()),
-                    new PositionInPlate(p.getLeft(), p.getRight())));
-        }
-        return out;
-    }
 
     @Override
     public Plate clone() {
@@ -274,113 +257,4 @@ public class Plate extends Photo implements Cloneable {
         new ConvolveOp(new Kernel(3, 3, matrix), ConvolveOp.EDGE_NO_OP, null).filter(destination, source);
     }
 
-    public float getCharsWidthDispersion(List<Char> chars) {
-        float averageDispersion = 0;
-        float averageWidth = getAverageCharWidth(chars);
-        for (Char chr : chars) {
-            averageDispersion += (Math.abs(averageWidth - chr.fullWidth));
-        }
-        averageDispersion /= chars.size();
-        return averageDispersion / averageWidth;
-    }
-
-    public float getPiecesWidthDispersion(List<Char> chars) {
-        float averageDispersion = 0;
-        float averageWidth = getAveragePieceWidth(chars);
-        for (Char chr : chars) {
-            averageDispersion += (Math.abs(averageWidth - chr.pieceWidth));
-        }
-        averageDispersion /= chars.size();
-        return averageDispersion / averageWidth;
-    }
-
-    public float getAverageCharWidth(List<Char> chars) {
-        float averageWidth = 0;
-        for (Char chr : chars) {
-            averageWidth += chr.fullWidth;
-        }
-        averageWidth /= chars.size();
-        return averageWidth;
-    }
-
-    public float getAveragePieceWidth(List<Char> chars) {
-        float averageWidth = 0;
-        for (Char chr : chars) {
-            averageWidth += chr.pieceWidth;
-        }
-        averageWidth /= chars.size();
-        return averageWidth;
-    }
-
-    public float getAveragePieceHue(List<Char> chars) {
-        float averageHue = 0;
-        for (Char chr : chars) {
-            averageHue += chr.statisticAverageHue;
-        }
-        averageHue /= chars.size();
-        return averageHue;
-    }
-
-    public float getAveragePieceContrast(List<Char> chars) {
-        float averageContrast = 0;
-        for (Char chr : chars) {
-            averageContrast += chr.statisticContrast;
-        }
-        averageContrast /= chars.size();
-        return averageContrast;
-    }
-
-    public float getAveragePieceBrightness(List<Char> chars) {
-        float averageBrightness = 0;
-        for (Char chr : chars) {
-            averageBrightness += chr.statisticAverageBrightness;
-        }
-        averageBrightness /= chars.size();
-        return averageBrightness;
-    }
-
-    public float getAveragePieceMinBrightness(List<Char> chars) {
-        float averageMinBrightness = 0;
-        for (Char chr : chars) {
-            averageMinBrightness += chr.statisticMinimumBrightness;
-        }
-        averageMinBrightness /= chars.size();
-        return averageMinBrightness;
-    }
-
-    public float getAveragePieceMaxBrightness(List<Char> chars) {
-        float averageMaxBrightness = 0;
-        for (Char chr : chars) {
-            averageMaxBrightness += chr.statisticMaximumBrightness;
-        }
-        averageMaxBrightness /= chars.size();
-        return averageMaxBrightness;
-    }
-
-    public float getAveragePieceSaturation(List<Char> chars) {
-        float averageSaturation = 0;
-        for (Char chr : chars) {
-            averageSaturation += chr.statisticAverageSaturation;
-        }
-        averageSaturation /= chars.size();
-        return averageSaturation;
-    }
-
-    public float getAverageCharHeight(List<Char> chars) {
-        float averageHeight = 0;
-        for (Char chr : chars) {
-            averageHeight += chr.fullHeight;
-        }
-        averageHeight /= chars.size();
-        return averageHeight;
-    }
-
-    public float getAveragePieceHeight(List<Char> chars) {
-        float averageHeight = 0;
-        for (Char chr : chars) {
-            averageHeight += chr.pieceHeight;
-        }
-        averageHeight /= chars.size();
-        return averageHeight;
-    }
 }

@@ -27,7 +27,7 @@ public class SWTTest {
         Mat a = Imgcodecs.imread("Cropped/croppingImg3903.jpg");
         BufferedImage image = FormatConverter.MatToBufferImage(a);
         Plate photo = new Plate(image);
-        photo.normalizeBrightness((float) 0.7);
+
 
         photo.saveImage("dupa.jpg");
         photo.normalize();

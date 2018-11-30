@@ -27,14 +27,8 @@ public class Thresholding {
 
 
     private static Mat threshold(Mat srcImage, int Settings) {
-        int Cooooo3 = 3;
-        int Cooooo5 = 5;
-        int Cooooo7 = 13;
 
-        Mat matImgDstInv = new Mat();
         Random rand = new Random();
-        Mat disImag = new Mat();
-        Mat disImag2 = new Mat();
         int n = rand.nextInt(50000) + 1;
         System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
         Mat dstImage = new Mat();
